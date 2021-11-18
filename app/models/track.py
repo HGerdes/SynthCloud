@@ -8,6 +8,7 @@ class Track(db.Model):
     album_id = db.Column(db.Integer, db.ForeignKey("albums.id"), nullable=False)
     genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"), nullable=False)
     name = db.Column(db.String(255), nullable=False)
+    song_url = db.Column(db.String(255), nullable=False)
 
     def to_dict(self):
         return {
