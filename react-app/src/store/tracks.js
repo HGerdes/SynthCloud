@@ -3,10 +3,10 @@ const GET_ONE_TRACK = "/TRACKS/getOneTrack"
 const UPDATE_TRACK = "/TRACK/updateTrack"
 const DELETE_TRACK = "/TRACK/deleteTrack"
 
-const getTracks = (getAlltracks) => {
+const getTracks = (getAllTracks) => {
     return {
         type: GET_TRACKS,
-        getAlltracks
+        getAllTracks
     }
 }
 
@@ -82,7 +82,7 @@ const trackReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_TRACKS: {
             newState = Object.assign({}, state)
-            newState.getAlltracks = action.getAlltracks;
+            newState.getAllTracks = action.getAllTracks;
             return newState;
         }
 
