@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import Track, db
-import requests
+from flask import request
 
 track_routes = Blueprint("track", __name__)
 
@@ -33,7 +33,7 @@ def updateTrack(track_id):
     return track.to_dict()
 
 @track_routes.route("/<int:id>/delete", methods=["DELETE"])
-def remove_track(track_id)
+def remove_track(track_id):
     track = Track.query.filter_by(id=track_id).first()
     db.session.delete(track)
     db.session.commit()
