@@ -28,3 +28,7 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email
         }
+
+    tracks = db.relationship("Track", back_populates="users")
+    albums = db.relationship("Album", back_populates="users")
+    comments = db.relationship("Comment", back_populates="users")
