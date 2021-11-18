@@ -1,16 +1,15 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import Track, db
-from flask import request
 
 track_routes = Blueprint("track", __name__)
 
-@track_routes.route("/get")
+@track_routes.route("/")
 def get_all_tracks():
     all_tracks = Track.query.all()
     return {"list": [singleTrack.to_dict() for singleTrack in all_tracks]}
 
-@track_routes.route("'/<int:id>'")
+@track_routes.route("/<int:id>", methods=["GET"])
 def getOneTrack(id):
     oneTrack = Track.query.get(id)
     trackDic = oneTrack.to_dict()
