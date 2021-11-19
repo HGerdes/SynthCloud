@@ -17,8 +17,8 @@ def getOneTrack(id):
 
 @track_routes.route("/new", methods=["POST"])
 def addTrack():
-    new_track = request.jsonify
-    track = Track(user_id=data["user_id"], album_id=data["album_id"], genre_id=data["genre_id"], name=data["name"])
+    new_track = request.json
+    track = Track(user_id=new_track["user_id"], album_id=new_track["album_id"], genre_id=new_track["genre_id"], name=new_track["name"])
     db.session.add(track)
     db.session.commit()
     return {"msg": "ok"}

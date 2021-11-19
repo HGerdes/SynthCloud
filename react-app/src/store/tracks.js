@@ -2,6 +2,7 @@ const GET_TRACKS = "/TRACKS/getTracks"
 const GET_ONE_TRACK = "/TRACKS/getOneTrack"
 const UPDATE_TRACK = "/TRACK/updateTrack"
 const DELETE_TRACK = "/TRACK/deleteTrack"
+const ADD_TRACK = "/TRACK/createTrack"
 
 const getTracks = (getAllTracks) => {
     return {
@@ -28,6 +29,13 @@ const deleteTrack = (deleteTrack) => {
     return {
         type: DELETE_TRACK,
         deleteTrack
+    }
+}
+
+const addTrack = (addTrack) => {
+    return {
+        type: ADD_TRACK,
+        addTrack
     }
 }
 
@@ -74,6 +82,18 @@ export const removeTrack = (track) => async dispatch => {
     }
 }
 
+export const createTrack = (track) => async dispatch => {
+    const response = await fetch(`/api/tracks/new`, {
+        method: "POST",
+        body: JSON.stringify(track)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(addTrack(data))
+    }
+}
+
 //Reducer
 const initialState = {};
 
@@ -104,6 +124,13 @@ const trackReducer = (state = initialState, action) => {
             return {
                 ...state,
                 deleteTrack: action.deleteTrack
+            }
+        }
+
+        case ADD_TRACK: {
+            return {
+                ...state,
+                addTrack: action.addTrack
             }
         }
         default:
