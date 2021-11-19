@@ -22,8 +22,8 @@ const albumReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case GET_ALBUMS: {
-            newState = Object.assign({}, state)
-            newState.getAllAlbums = action.getAllTracks;
+            newState = Object.assign({}, state);
+            newState.getAllAlbums = action.getAllAlbums;
             return newState;
         }
         default:

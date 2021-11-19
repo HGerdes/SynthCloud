@@ -11,7 +11,7 @@ export const allGenres = () => async (dispatch) => {
     const response = await fetch("/api/genres/")
     if (response.ok) {
         const data = await response.json();
-        dispatch(allGenres(data));
+        dispatch(getGenres(data));
         return data;
     }
 }
@@ -23,7 +23,7 @@ const genreReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_GENRES: {
             newState = Object.assign({}, state);
-            newState.allGenres = action.allGenres;
+            newState.getAllGenres = action.getAllGenres;
             return newState;
         }
         default:
