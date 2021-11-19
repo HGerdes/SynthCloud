@@ -45,6 +45,8 @@ function App() {
         <ProtectedRoute path='/home' exact={true} >
           <HomePage />
         </ProtectedRoute>
+        <ProtectedRoute path='/upload' exact={true} >
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );
