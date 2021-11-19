@@ -10,6 +10,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 
 import HomePage from "./components/HomePage";
+import UploadSongForm from './components/upload';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -44,6 +45,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/home' exact={true} >
           <HomePage />
+        </ProtectedRoute>
+        <ProtectedRoute path='/upload' exact={true} >
+          <UploadSongForm />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
