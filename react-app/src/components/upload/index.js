@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { allAlbums } from "../../store/albums";
 import { allGenres } from "../../store/genres";
 import { createTrack } from "../../store/tracks";
+import "./upload.css";
 
 const UploadSongForm = () => {
     const currentUser = useSelector((state) => state.session.user);
@@ -41,12 +42,12 @@ const UploadSongForm = () => {
         e.preventDefault();
 
         const payload = {
-            userId,
+            user_id: userId,
             genre_id: genre,
             album_id: 1,
             name,
-            songUrl,
-            imageUrl,
+            song_url: songUrl,
+            image_url: imageUrl,
         }
         console.log(payload)
 

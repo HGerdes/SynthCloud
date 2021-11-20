@@ -9,8 +9,10 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 
+
 import HomePage from "./components/HomePage";
 import UploadSongForm from './components/upload';
+import Header from './components/navbar';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -29,24 +31,29 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
       <Switch>
         <Route path='/login' exact={true}>
+          <Header />
           <LoginForm />
         </Route>
         <Route path='/sign-up' exact={true}>
+          <Header />
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        <ProtectedRoute path='/users' exact={true}>
+          <Header />
           <UsersList/>
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        <ProtectedRoute path='/users/:userId' exact={true}>
+          <Header />
           <User />
         </ProtectedRoute>
         <ProtectedRoute path='/home' exact={true} >
+          <Header />
           <HomePage />
         </ProtectedRoute>
         <ProtectedRoute path='/upload' exact={true} >
+          <Header />
           <UploadSongForm />
         </ProtectedRoute>
       </Switch>

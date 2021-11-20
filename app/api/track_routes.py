@@ -18,7 +18,7 @@ def getOneTrack(id):
 @track_routes.route("/new", methods=["POST"])
 def addTrack():
     new_track = request.json
-    track = Track(user_id=new_track["user_id"], genre_id=new_track["genre_id"], album_id=new_track["album_id"],  name=new_track["name"], song=new_track["songUrl"], imageUrl=new_track["imageUrl"])
+    track = Track(user_id=new_track["user_id"], genre_id=new_track["genre_id"], album_id=new_track["album_id"],  name=new_track["name"], song_url=new_track["song_url"], image_url=new_track["image_url"])
     db.session.add(track)
     db.session.commit()
     return {"msg": "ok"}
@@ -37,3 +37,10 @@ def remove_track(track_id):
     db.session.delete(track)
     db.session.commit()
     return track.to_dict()
+
+@track_routes.route("/", methods=["POST"])
+def search_tracks():
+    search = request.json
+    search_name = Track.query.filter(Track.name.ilike(f'{search["results"]}%')).all()
+    print(search_name)
+    return {'search': [Track.to_dict() for Track in search_name]}
