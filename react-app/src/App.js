@@ -13,6 +13,7 @@ import { authenticate } from './store/session';
 import HomePage from "./components/HomePage";
 import UploadSongForm from './components/upload';
 import Header from './components/navbar';
+import SingleTrack from './components/SingleTrack';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -55,6 +56,13 @@ function App() {
         <ProtectedRoute path='/upload' exact={true} >
           <Header />
           <UploadSongForm />
+        </ProtectedRoute>
+        <ProtectedRoute path='/tracks/:id' exact={true} >
+          <SingleTrack />
+          <Header />
+        </ProtectedRoute>
+        <ProtectedRoute path='/stream' exact={true} >
+          <Header />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

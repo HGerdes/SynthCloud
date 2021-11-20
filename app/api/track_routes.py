@@ -9,11 +9,10 @@ def get_all_tracks():
     all_tracks = Track.query.all()
     return {"list": [singleTrack.to_dict() for singleTrack in all_tracks]}
 
-@track_routes.route("/<int:id>", methods=["GET"])
+@track_routes.route("/<int:id>")
 def getOneTrack(id):
     oneTrack = Track.query.get(id)
-    trackDic = oneTrack.to_dict()
-    return {"k":[oneTrack.to_dict()]}
+    return oneTrack.to_dict()
 
 @track_routes.route("/new", methods=["POST"])
 def addTrack():

@@ -58,7 +58,7 @@ export const allTracks = () => async (dispatch) => {
 };
 
 export const loadOneTrack = (id) => async (dispatch) => {
-    const response = await fetch(`api/tracks/${id}`);
+    const response = await fetch(`/api/tracks/${id}`);
     if (response.ok) {
         const oneTrack = await response.json();
         dispatch(getOneTrack(oneTrack));
@@ -67,7 +67,7 @@ export const loadOneTrack = (id) => async (dispatch) => {
 };
 
 export const editTrack = (track) => async dispatch => {
-    const response = await fetch(`api/tracks/${track.id}/update]`, {
+    const response = await fetch(`/api/tracks/${track.id}/update]`, {
         method: "PATCH",
         body: JSON.stringify(track)
     });
@@ -104,7 +104,6 @@ export const createTrack = (track) => async dispatch => {
 }
 
 export const findTracks = (results) => async (dispatch) => {
-    console.log(results)
     const object = {results:results}
     const res = await fetch("/api/tracks/", {
         method: "POST",

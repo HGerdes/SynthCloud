@@ -12,13 +12,9 @@ const Header = () => {
     const dispatch = useDispatch();
     const searchBar = useRef(null);
     const results = useRef(null);
-    const searchResults = useSelector((state) => state.tracks.searchTracks.search);
+    const searchResults = useSelector((state) => state.tracks.searchTracks?.search);
     const [search, setSearch] = useState("");
     const regex = new RegExp(search, "gi");
-
-    useEffect(() => {
-        dispatch(allTracks());
-    },[dispatch]);
 
     useEffect(() => {
         if (search?.length > 0) {
