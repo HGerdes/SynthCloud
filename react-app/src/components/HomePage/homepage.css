@@ -32,11 +32,13 @@
 }
 
 .hpLRButtons > *:hover {
+    cursor:pointer;
     color: rgb(196,0,247);
     text-shadow: 0 0 1px rgb(196,0,247), 0 0 12px rgb(196,0,247), 0 0 18px rgb(196,0,247);
 }
 
 .fa-chevron-left {
+    position: absolute;
     font-size: 100px;
     color: rgb(0, 222, 222);
     text-shadow: 0 0 1px rgb(0, 222, 222), 0 0 12px rgb(0, 222, 222), 0 0 18px rgb(0, 222, 222);
@@ -44,10 +46,11 @@
 }
 
 .fa-chevron-right {
+    position: absolute;
     font-size: 100px;
     color: rgb(0, 222, 222);
     text-shadow: 0 0 1px rgb(0, 222, 222), 0 0 12px rgb(0, 222, 222), 0 0 18px rgb(0, 222, 222);
-    margin-left: 985px;
+    margin-left: 1055px;
 }
 
 
@@ -55,9 +58,13 @@
     margin-top: 90px;
 }
 
+.track {
+    width: 200px;
+}
+
 .tracks {
-    margin-left: 100px;
     display: grid;
+    margin-left: 100px;
     max-width: 900px;
     grid-gap: 100px;
     padding: 16px;
@@ -67,12 +74,9 @@
     overflow-x: auto;
     scroll-behavior: smooth;
     overflow: hidden;
-    box-shadow: 0px 0px 45px rgb(0, 222, 222);
+    box-shadow: 0px 0px 65px rgb(0, 222, 222);
     border: 1px solid rgb(0, 144, 144);
     border-radius: 5px;
-}
-
-.track {
 }
 
 .tracksPageTrackImage {
@@ -82,15 +86,11 @@
     border-radius: 5px;
 }
 
-.trackContainer {
-}
-
-.tntd {
-}
-
 .trackName {
     text-decoration: none;
     font-size: 20px;
     width: 200px;
     font-family: JohnnyFever;
+    color: rgb(0, 222, 222);
+    text-shadow: 0 0 1px rgb(0, 222, 222), 0 0 12px rgb(0, 222, 222), 0 0 18px rgb(0, 222, 222);
 }

@@ -30,26 +30,23 @@ const HomePage = () => {
         <div className="homePageContainer">
             <div className="homePageInnerStuffContainer">
                 <div className="recentlyPlayed">Recent Uploads</div>
-
                 <div className="hpLRButtons">
-                    <i onClick={() => scroll(-1040)} className="fas fa-chevron-left"></i>
-                    <i onClick={() => scroll(1040)} className="fas fa-chevron-right"></i>
+                <i onClick={() => scroll(-780)} className="fas fa-chevron-left"></i>
+                <i onClick={() => scroll(780)} className="fas fa-chevron-right"></i>
                 </div>
-
                 <div className="musicGridContainer">
                     <div className="tracks" ref={ref}>
-
                         {tracks?.map(track => (
-                            <div className="track" key={track?.id}>
-                                <NavLink to={`/tracks/${track?.id}`} key={`${track?.id}`} className="trackLinks">
+                            <NavLink to={`/tracks/${track?.id}`} key={`${track?.id}`} className="track" key={track?.id}>
+                                <div className="track">
                                     <div className="trackContainer">
                                         <img className="tracksPageTrackImage" src={track?.image_url} alt=""></img>
                                         <div className="tntd">
                                             <div className="trackName">{track?.name}</div>
                                         </div>
                                     </div>
-                                </NavLink>
-                            </div>
+                                </div>
+                            </NavLink>
                         ))}
                     </div>
                 </div>
