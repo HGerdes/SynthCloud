@@ -15,11 +15,10 @@ const HomePage = () => {
     }, [dispatch])
 
     const tracks = useSelector((state) => state.tracks.getAllTracks?.list);
-    console.log("tracks", tracks)
 
     return (
         <>
-        <div className="pageContainer">
+        <div className="homePageContainer">
             <div className="musicGridContainer">
                 {tracks?.map(track => (
                     <div className="track" key={track?.id}>

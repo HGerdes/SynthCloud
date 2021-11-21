@@ -56,9 +56,9 @@ const UploadSongForm = () => {
 
     return (
         <>
-            <div className="pageContainer">
+            <div className="uploadPageContainer">
                 <form className="newTrackForm" onSubmit={onSubmit}>
-                    <div className="formContainer">
+                    <div className="uploadFormContainer">
                         <div className="trackName"> Name of track:
                             <input
                                 type="name"

@@ -15,6 +15,7 @@ import HomePage from "./components/HomePage";
 import UploadSongForm from './components/upload';
 import Header from './components/navbar';
 import SingleTrack from './components/SingleTrack';
+import Splash from './components/Splash';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -34,6 +35,10 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
+        <Route path="/" exact={true}>
+          <Header />
+          <Splash />
+        </Route>
         <Route path='/login' exact={true}>
           <Header />
           <LoginForm />

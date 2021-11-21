@@ -1,1 +1,13 @@
 /* TODO Add site wide styles */
+body {
+    background-image: url("./images/bgimg.jpg");
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+img {
+    object-fit: fill;
+}
