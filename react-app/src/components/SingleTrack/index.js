@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, NavLink } from 'react-router-dom';
 import { loadOneTrack } from '../../store/tracks';
+import "./singleTrack.css"
 
 const SingleTrack = () => {
     const dispatch = useDispatch();
@@ -13,13 +14,19 @@ const SingleTrack = () => {
     const oneTrack = useSelector(state => {
         return state.tracks.getOneTrack
     })
-    
+
     useEffect(() => {
         dispatch(loadOneTrack(uniqueTrackId))
     },[dispatch, uniqueTrackId])
 
     return (
         <>
+            <div className="pageContainer">
+                <div className="trackDetails">
+                    <div className="trackName">{oneTrack?.name}</div>
+                        <img className="trackImage" src={oneTrack?.image_url} alt=""></img>
+                </div>
+            </div>
         </>
     )
 }

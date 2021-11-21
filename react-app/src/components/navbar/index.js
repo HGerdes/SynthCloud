@@ -7,6 +7,7 @@ import './navbar.css'
 import './'
 import { findTracks } from '../../store/tracks';
 import { allTracks } from '../../store/tracks';
+import 'font-awesome/css/font-awesome.min.css';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -84,73 +85,86 @@ const Header = () => {
     return (
 
     <div className="navBarContainer">
-        <div className="logo">
-            <NavLink to='/Home'>
-                <img src={("https://i.imgur.com/gQywY2v.png")} className="cloudImage"/>
-            </NavLink>
-        </div>
-        <div className="streamLink">
-            <NavLink to='/stream'>
-                Stream
-            </NavLink>
-        </div>
-        <div className="search-container">
-            <input className="search-bar"
-            type="text"
-            placeholder="Search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onFocus={(e) => show(e)}
-            ref={searchBar}
-            onMouseEnter={() =>
-                (searchBar.current.style.backgroundColor = "rgb(242, 242, 242")
-              }
-            onMouseLeave={colorChange}
-            />
-            <div
-            className="search-results hidden"
-            tabIndex={0}
-            ref={results}
-            onMouseEnter={() =>
-                (searchBar.current.style.backgroundColor = "rgb(242, 242, 242)")
-            }
-            >
-            {searchResults?.length > 0 &&
-                search?.length > 0 &&
-                searchResults.map((result, i) => (
-                <NavLink
-                    to={`/tracks/${result.id}`}
-                    key={result.id}
-                    className="result"
-                    onClick={(e) => hideSearch(e)}
-                >
-                    <div
-                    className="result-name"
-                    dangerouslySetInnerHTML={{
-                        __html: result.name.replace(
-                        regex,
-                        (match) => `<span>${match}</span>`
-                        ),
-                    }}
-                    ></div>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossOrigin="anonymous" />
+
+        <div className="navbarObjectsContainer">
+            <div className="logo">
+                <NavLink to='/Home' className="logo">
+                    <img src={("https://i.imgur.com/gQywY2v.png")} className="cloudImage"/>
                 </NavLink>
-                ))}
-            {searchResults?.length === 0 && search?.length > 0 && (
-                <div className="no-result">
-                We were unable to find any results for your search.
-                </div>
-            )}
             </div>
-        </div>
-        <div className="uploadLink">
-            <NavLink to='/upload'>
-                Upload
-            </NavLink>
-        </div>
-        <div className="streamLink">
-            <NavLink to='/profile'>
-                Profile
-            </NavLink>
+            <div className="home">
+                <NavLink to='/Home' className="home">
+                    Home
+                </NavLink>
+            </div>
+            <div className="streamLink">
+                <NavLink to='/stream' className="stream">
+                    Stream
+                </NavLink>
+            </div>
+            <div className="search-container">
+                <input className="search-bar"
+                type="text"
+                placeholder="Search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onFocus={(e) => show(e)}
+                ref={searchBar}
+                onMouseEnter={() =>
+                    (searchBar.current.style.backgroundColor = "rgb(242, 242, 242")
+                }
+                onMouseLeave={colorChange}
+                />
+                <div
+                className="search-results hidden"
+                tabIndex={0}
+                ref={results}
+                onMouseEnter={() =>
+                    (searchBar.current.style.backgroundColor = "rgb(242, 242, 242)")
+                }
+                >
+                {searchResults?.length > 0 &&
+                    search?.length > 0 &&
+                    searchResults.map((result, i) => (
+                    <NavLink
+                        to={`/tracks/${result.id}`}
+                        key={result.id}
+                        className="result"
+                        onClick={(e) => hideSearch(e)}
+                    >
+                        <div
+                        className="result-name"
+                        dangerouslySetInnerHTML={{
+                            __html: result.name.replace(
+                            regex,
+                            (match) => `<span>${match}</span>`
+                            ),
+                        }}
+                        ></div>
+                    </NavLink>
+                    ))}
+                {searchResults?.length === 0 && search?.length > 0 && (
+                    <div className="no-result">
+                    We were unable to find any results for your search.
+                    </div>
+                )}
+                </div>
+            </div>
+            <div className="uploadLink">
+                <NavLink to='/upload' className="uploadLink">
+                    Upload
+                </NavLink>
+            </div>
+            <div className="profileLink">
+                <NavLink to='/profile' classname="profileLink">
+                    Profile
+                </NavLink>
+            </div>
+            <div>
+            <i class="fas fa-ellipsis-h"></i>
+
+            </div>
         </div>
     </div>
     )

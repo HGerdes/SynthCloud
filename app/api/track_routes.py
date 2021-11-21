@@ -41,5 +41,4 @@ def remove_track(track_id):
 def search_tracks():
     search = request.json
     search_name = Track.query.filter(Track.name.ilike(f'{search["results"]}%')).all()
-    print(search_name)
     return {'search': [Track.to_dict() for Track in search_name]}
