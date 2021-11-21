@@ -8,14 +8,22 @@ import './'
 import { findTracks } from '../../store/tracks';
 import { allTracks } from '../../store/tracks';
 import 'font-awesome/css/font-awesome.min.css';
+import AccountNav from "./accountNav"
 
 const Header = () => {
+    const user = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
     const searchBar = useRef(null);
     const results = useRef(null);
     const searchResults = useSelector((state) => state.tracks.searchTracks?.search);
     const [search, setSearch] = useState("");
     const regex = new RegExp(search, "gi");
+    //for ellipses dropdown
+    const dropdown = useRef(null);
+    const account = useRef(null);
+    const [num, setNum] = useState(0);
+    const userId = user?.id;
+    const history = useHistory();
 
     useEffect(() => {
         if (search?.length > 0) {
@@ -81,6 +89,29 @@ const Header = () => {
             searchBar.current.style.backgroundColor = "rgb(242, 242, 242)";
         }
     };
+
+    //for ellipses menu
+    const showDropdown = () => {
+        if (num === 0) {
+            dropdown.current.classList.remove("hidden");
+            account.current.style.textDecoration = "underline";
+            account.current.style.color = "rgb(255, 80, 0)";
+            setNum(1);
+        } else {
+            dropdown.current.classList.add("hidden");
+            setNum(0);
+        }
+    };
+
+    const profileFunc = () => {
+        console.log(user)
+        if (user) {
+            const profileLink = `/profile/${userId}`
+            history.push(profileLink)
+        } else {
+            history.push("/login")
+        }
+    }
 
     return (
 
@@ -157,13 +188,18 @@ const Header = () => {
                 </NavLink>
             </div>
             <div className="profileLink">
-                <NavLink to='/profile' classname="profileLink">
+                <div onClick={() => profileFunc()} classname="profileLink">
                     Profile
-                </NavLink>
+                </div>
             </div>
-            <div>
-            <i class="fas fa-ellipsis-h"></i>
-
+            <div className="account">
+                <i class="fas fa-ellipsis-h account-word"
+                    onClick={() => showDropdown()}
+                    ref={account}
+                ></i>
+                 <div className="account-dropdown hidden" ref={dropdown}>
+                    <AccountNav />
+                </div>
             </div>
         </div>
     </div>
