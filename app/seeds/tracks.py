@@ -24,6 +24,23 @@ def seed_tracks():
     db.session.add(track_1)
     db.session.add(track_2)
     db.session.add(track_3)
+    db.session.add(track_4)
+    db.session.add(track_5)
+    db.session.add(track_6)
+    db.session.add(track_7)
+    db.session.add(track_8)
+    db.session.add(track_9)
+    db.session.add(track_10)
+    db.session.add(track_11)
+    db.session.add(track_12)
+    db.session.add(track_13)
+    db.session.add(track_14)
+    db.session.add(track_15)
+    db.session.add(track_16)
+    db.session.add(track_17)
+    db.session.add(track_18)
+    db.session.add(track_19)
+
 
     db.session.commit()
 

@@ -92,13 +92,16 @@ const Header = () => {
 
     //for ellipses menu
     const showDropdown = () => {
+
         if (num === 0) {
             dropdown.current.classList.remove("hidden");
+            account.current.style.color = "rgb(199, 0, 189)";
             account.current.style.textDecoration = "underline";
-            account.current.style.color = "rgb(255, 80, 0)";
             setNum(1);
         } else {
             dropdown.current.classList.add("hidden");
+            account.current.style.color = "rgb(69,14,255)";
+            account.current.style.textDecoration = "none";
             setNum(0);
         }
     };

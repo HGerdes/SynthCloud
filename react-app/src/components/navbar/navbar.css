@@ -68,7 +68,7 @@ span {
     display: inline-block;
     border: 0;
     margin: 0;
-    color: rgb(255, 80, 0);
+    color: rgb(199, 0, 189);
 }
 
 .search-bar {
@@ -135,16 +135,19 @@ span {
 
 .fa-ellipsis-h {
     font-size: 35px;
-    color: rgb(199, 0, 189);
+    color: rgb(69,14,255);
 }
 
 .account-word {
     font-weight: 600;
     cursor: pointer;
     text-underline-offset: 10.5px;
-    text-decoration-color: rgb(255, 80, 0) !important;
+    text-decoration-color: rgb(199, 0, 189) !important;
     text-decoration-thickness: 2px !important;
     user-select: none;
+}
+
+.accoun:active {
 }
 
 .account-dropdown {
