@@ -4,6 +4,7 @@ const UPDATE_TRACK = "/TRACK/updateTrack"
 const DELETE_TRACK = "/TRACK/deleteTrack"
 const ADD_TRACK = "/TRACK/createTrack"
 const SEARCH_TRACKS = "/TRACK/searchTracks"
+const GET_ARTISTS = "/TRACK/getArtist"
 
 const getTracks = (getAllTracks) => {
     return {
@@ -47,6 +48,13 @@ const searchTracks = (tracks) => {
     }
 }
 
+const loadArtists = (loadArtists) => {
+    return {
+        type: GET_ARTISTS,
+        loadArtists
+    }
+}
+
 //Put on your thunkin cap because it's time for some thunkin
 export const allTracks = () => async (dispatch) => {
     const response = await fetch("/api/tracks/")
@@ -67,7 +75,7 @@ export const loadOneTrack = (id) => async (dispatch) => {
 };
 
 export const editTrack = (track) => async dispatch => {
-    const response = await fetch(`/api/tracks/${track.id}/update]`, {
+    const response = await fetch(`/api/tracks/${track.id}/update`, {
         method: "PATCH",
         body: JSON.stringify(track)
     });
@@ -118,6 +126,17 @@ export const findTracks = (results) => async (dispatch) => {
     }
 }
 
+export const getTrackArtists = () => async dispatch => {
+    const response = await fetch("/api/tracks/artist");
+
+    if (response.ok) {
+        const artists = await response.json();
+        dispatch(loadArtists(artists));
+        console.log(artists)
+        return artists;
+    }
+}
+
 
 //Reducer
 const initialState = {};
@@ -163,6 +182,13 @@ const trackReducer = (state = initialState, action) => {
             return {
                 ...state,
                 searchTracks: action.tracks
+            }
+        }
+
+        case GET_ARTISTS: {
+            return {
+                ...state,
+                loadArtists: action.loadArtists
             }
         }
         default:

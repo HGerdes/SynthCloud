@@ -1,13 +1,19 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Track, db
+from app.models import Track, db, User
 
 track_routes = Blueprint("track", __name__)
 
 @track_routes.route("/")
 def get_all_tracks():
     all_tracks = Track.query.all()
-    return {"list": [singleTrack.to_dict() for singleTrack in all_tracks]}
+    find_all = []
+    for track in all_tracks:
+        user=User.query.get(track.user_id)
+        find_all.append({"track":track.to_dict(), "user":user.to_dict()})
+
+    print("?????", all_tracks)
+    return {"list": [singleTrack.to_dict() for singleTrack in all_tracks], "combined": find_all}
 
 @track_routes.route("/<int:id>")
 def getOneTrack(id):
@@ -42,3 +48,9 @@ def search_tracks():
     search = request.json
     search_name = Track.query.filter(Track.name.ilike(f'{search["results"]}%')).all()
     return {'search': [Track.to_dict() for Track in search_name]}
+
+@track_routes.route("/artist", methods=["GET"])
+def get_track_artist():
+    artists = User.query.all()
+    print("!!!!!!!", artists)
+    return {"list": [artist.to_dict() for artist in artists]}

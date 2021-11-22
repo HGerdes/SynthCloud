@@ -26,3 +26,4 @@ class Track(db.Model):
     albums = db.relationship("Album", back_populates="tracks")
     genres = db.relationship("Genre", back_populates="tracks")
     comments = db.relationship("Comment", back_populates="tracks")
+

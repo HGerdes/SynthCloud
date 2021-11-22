@@ -191,12 +191,12 @@ const Header = () => {
                 </NavLink>
             </div>
             <div className="profileLink">
-                <div onClick={() => profileFunc()} classname="profileLink">
+                <div onClick={() => profileFunc()} className="profileLink">
                     Profile
                 </div>
             </div>
             <div className="account">
-                <i class="fas fa-ellipsis-h account-word"
+                <i className="fas fa-ellipsis-h account-word"
                     onClick={() => showDropdown()}
                     ref={account}
                 ></i>
