@@ -64,8 +64,8 @@ function App() {
           <UploadSongForm />
         </ProtectedRoute>
         <ProtectedRoute path='/tracks/:id' exact={true} >
-          <SingleTrack />
           <Header />
+          <SingleTrack />
         </ProtectedRoute>
         <ProtectedRoute path='/stream' exact={true} >
           <Header />

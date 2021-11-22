@@ -22,11 +22,9 @@ const HomePage = () => {
         return state.tracks.getTrackArtists?.combined;
     })
 
-
     const scroll = (scrollOffset) => {
         ref.current.scrollLeft += scrollOffset;
     };
-
 
     useEffect(() => {
         dispatch(allTracks())
