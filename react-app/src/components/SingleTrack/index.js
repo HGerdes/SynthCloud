@@ -24,6 +24,10 @@ const SingleTrack = () => {
 
     const oneTrack = useSelector(state => state.tracks?.getOneTrack);
 
+    const comments = useSelector(state => {
+        return state.comments.getAllComments?.combined;
+    })
+
     let song = oneTrack?.combined[0].track.song_url;
     // let song = 'http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3'
     useEffect(() => {
@@ -80,8 +84,19 @@ const SingleTrack = () => {
                         <div className="waveformContainer">
                             <div ref={waveformRef} className="waveform"> </div>
                             <i className="playPause fas fa-play"> </i>
-
                         </div>
+                    </div>
+                    <div className="hr" id="tophr"></div>
+                    <div className="commentContainer">
+                        {comments?.map((comment => (
+                            <div key={comment.id} className="comment">
+                                 {console.log("IN JSX", comment.comment.comment)}
+                                <div className="commentDetContainer">
+                                    <div className="commentUser">{comment.user.username}</div>
+                                    <div className="commentContent">{comment.comment.comment}</div>
+                                </div>
+                            </div>
+                         )))}
                     </div>
                 </div>
             </div>

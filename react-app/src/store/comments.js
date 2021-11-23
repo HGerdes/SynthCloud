@@ -44,7 +44,6 @@ export const getCommentsForSong = (id) => async dispatch => {
     if (response.ok) {
         const comments = await response.json();
         dispatch(loadAllComments(comments));
-        console.log("heerwerwerwerwer", comments)
         return comments;
     }
 }

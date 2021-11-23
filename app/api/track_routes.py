@@ -6,8 +6,8 @@ track_routes = Blueprint("track", __name__)
 
 @track_routes.route("/")
 def get_all_tracks():
-    all_tracks = Track.query.all()
     find_all = []
+    all_tracks = Track.query.all()
     for track in all_tracks:
         user = User.query.get(track.user_id)
         find_all.append({"track":track.to_dict(), "user":user.to_dict()})

@@ -70,6 +70,30 @@
 }
 
 .playPause:hover {
-    color: rgb(0, 192, 192);;
+    color: rgb(0, 192, 192);
     text-shadow: 0 0 1px rgb(0,192, 192), 0 0 12px rgb(0,192, 192), 0 0 18px rgb(0,192, 192);
+}
+
+.commentContainer {
+    position: absolute;
+    margin-top: 430px;
+    margin-left: 25px;
+}
+
+.commentDetContainer {
+    margin-top: 40px;
+    font-family: JohnnyFever;
+
+}
+
+.commentUser {
+    color: rgb(0, 222, 222);
+    text-shadow: 0 0 1px rgb(0,192, 192), 0 0 12px rgb(0,192, 192), 0 0 18px rgb(0,192, 192);
+    font-size: 20px;
+}
+
+.commentContent {
+    color: rgb(0, 222, 222);
+    text-shadow: 0 0 1px rgb(0,192, 192), 0 0 12px rgb(0,192, 192), 0 0 18px rgb(0,192, 192);
+    font-size: 30px;
 }
