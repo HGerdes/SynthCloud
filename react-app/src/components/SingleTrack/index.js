@@ -4,7 +4,7 @@ import { useHistory, NavLink } from 'react-router-dom';
 import { loadOneTrack } from '../../store/tracks';
 import { allGenres } from '../../store/genres';
 import WaveSurfer from 'wavesurfer.js';
-import { getTrackArtists } from '../../store/tracks';
+import { getCommentsForSong } from '../../store/comments';
 
 import "./singleTrack.css"
 
@@ -14,17 +14,12 @@ const SingleTrack = () => {
     const {pathname} = history.location;
     const uniqueTrackId = pathname.split("/")[2];
     const currentUser = useSelector(state => state.session.user);
-    const [url, seturl] = useState("");
-    let [isPlaying, setIsPlaying] = useState(false)
     let wavesurfer;
     const waveformRef = useRef(null);
 
-    const artists = useSelector(state => {
-        return state.tracks?.getTrackArtists;
-    })
-
     useEffect(() => {
         dispatch(loadOneTrack(uniqueTrackId))
+        dispatch(getCommentsForSong(uniqueTrackId))
     },[dispatch, uniqueTrackId])
 
     const oneTrack = useSelector(state => state.tracks?.getOneTrack);
@@ -53,7 +48,6 @@ const SingleTrack = () => {
             wavesurfer.on('ready', function () {
                 document.querySelector(".playPause").addEventListener("click", function() {
                     wavesurfer.playPause()
-
                 })
             },[]);
 
@@ -64,7 +58,6 @@ const SingleTrack = () => {
     useEffect(() => {
         document.querySelector(".playPause")?.addEventListener("click", function() {
             if (this.classList.contains("fa-play")) {
-                console.log(this.classList)
                 this.classList.remove("fa-play")
                 this.classList.add("fa-pause")
             } else {
@@ -73,9 +66,6 @@ const SingleTrack = () => {
             }
         })
     },[this])
-
-
-
 
     return (
         <>

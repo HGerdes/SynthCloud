@@ -29,7 +29,7 @@ const editComment = editComment => ({
     editComment
 })
 
-export const getComment = () => async dispatch => {
+export const getComments = () => async dispatch => {
     const response = await fetch("/api/comments")
 
     if (response.ok) {
@@ -41,10 +41,10 @@ export const getComment = () => async dispatch => {
 
 export const getCommentsForSong = (id) => async dispatch => {
     const response = await fetch(`/api/comments/${id}`);
-
     if (response.ok) {
         const comments = await response.json();
         dispatch(loadAllComments(comments));
+        console.log("heerwerwerwerwer", comments)
         return comments;
     }
 }
@@ -101,7 +101,7 @@ const commentReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD: {
             newState = Object.assign({}, state) //assign current state to newState
-            newState.getAllReviews = action.getAllReviews; //run getAllInstruments on newState
+            newState.getAllComments = action.getAllComments; //run getAllInstruments on newState
             return newState;
         }
 

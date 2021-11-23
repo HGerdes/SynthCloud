@@ -10,8 +10,9 @@ def get_all_comments():
     return {"list": [comment.to_dict() for comment in all_comments]}
 
 @comment_routes.route("/<int:track_id>")
-def get_comments_for_song(id):
-    all_track_comments = Comment.query.filter_by(track_id=track_id)
+def get_comments_for_song(track_id):
+    all_track_comments = Comment.query.filter_by(track_id=track_id).all()
+    print("!~!!@!@!  ", all_track_comments)
     return {"comments": [comment.to_dict() for comment in all_track_comments]}
 
 @comment_routes.route("/<int:track_id>", methods=["POST"])
@@ -20,7 +21,7 @@ def create_comment():
     comment = Comment(user_id=new_comment["user_id"], track_id=new_comment["track_id"], comment=new_comment["comment"])
     db.session.add(comment)
     db.session.commit()
-    return["msg": "comment post ok"]
+    return{"msg": "comment post ok"}
 
 @comment_routes.route("/<int:id>/update)", methods=["PUT"])
 def update_comment(comment_id):
