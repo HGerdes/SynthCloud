@@ -10,11 +10,11 @@ def seed_users():
     bobbie = User(
         username='bobbie', email='bobbie@aa.io', password='password')
     mitchMurder = User(
-        username='mitchmurder', email='mm@aa.io', password='password')
+        username='MitchMurder', email='mm@aa.io', password='password')
     kalax = User(
-        username='kalax', email='kalax@aa.io', password='password')
+        username='Kalax', email='kalax@aa.io', password='password')
     timecop1983 = User(
-        username='timecop1983', email='timecop1983@aa.io', password='password')
+        username='Timecop1983', email='timecop1983@aa.io', password='password')
     VaporwaveGuy = User(
         username='VaporwaveGuy', email='vg@aa.io', password='password')
 

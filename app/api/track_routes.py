@@ -9,16 +9,18 @@ def get_all_tracks():
     all_tracks = Track.query.all()
     find_all = []
     for track in all_tracks:
-        user=User.query.get(track.user_id)
+        user = User.query.get(track.user_id)
         find_all.append({"track":track.to_dict(), "user":user.to_dict()})
-
-    print("?????", all_tracks)
     return {"list": [singleTrack.to_dict() for singleTrack in all_tracks], "combined": find_all}
 
 @track_routes.route("/<int:id>")
 def getOneTrack(id):
     oneTrack = Track.query.get(id)
-    return oneTrack.to_dict()
+    find_one = []
+    user = User.query.get(oneTrack.user_id)
+    find_one.append({"track":oneTrack.to_dict(), "user":user.to_dict()})
+    return {"combined":find_one}
+    # return oneTrack.to_dict()
 
 @track_routes.route("/new", methods=["POST"])
 def addTrack():

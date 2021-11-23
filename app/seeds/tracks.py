@@ -1,7 +1,7 @@
 from app.models import db, Track
 
 def seed_tracks():
-    track_1 = Track(user_id=6, album_id=1, genre_id=1, name="Too late", song_url="https://songsforsynthcloud.s3.amazonaws.com/Timecop1983+-+Too+Late+(feat.+LeBrock).mp3", image_url="https://i.imgur.com/OvTKGze.jpg")
+    track_1 = Track(user_id=6, album_id=1, genre_id=1, name="Too Late", song_url="https://songsforsynthcloud.s3.amazonaws.com/Timecop1983+-+Too+Late+(feat.+LeBrock).mp3", image_url="https://i.imgur.com/OvTKGze.jpg")
     track_2 = Track(user_id=6, album_id=1, genre_id=1, name="Moments in Time", song_url="https://songsforsynthcloud.s3.amazonaws.com/Timecop1983+-+Moments+in+Time.mp3", image_url="https://i.imgur.com/OvTKGze.jpg")
     track_3 = Track(user_id=6, album_id=1, genre_id=1, name="It Was Only a Dream", song_url="https://songsforsynthcloud.s3.amazonaws.com/Timecop1983+-+It+was+only+a+Dream.mp3", image_url="https://i.imgur.com/OvTKGze.jpg")
     track_4 = Track(user_id=6, album_id=1, genre_id=1, name="Holding on to the Memories", song_url="https://songsforsynthcloud.s3.amazonaws.com/Timecop1983+-+Holding+on+to+the+Memories.mp3", image_url="https://i.imgur.com/OvTKGze.jpg")
@@ -19,7 +19,6 @@ def seed_tracks():
     track_16 = Track(user_id=7, album_id=4, genre_id=3, name="Sweetest Romance", song_url="https://songsforsynthcloud.s3.amazonaws.com/Iacon+-+Sweetest+Romance.mp3", image_url="https://i.imgur.com/OvTKGze.jpg")
     track_17 = Track(user_id=7, album_id=4, genre_id=3, name="Enjoy Yourself", song_url="https://songsforsynthcloud.s3.amazonaws.com/SAINT+PEPSI+-+ENJOY+YOURSELF+(Music+Video+REUPLOAD).mp3", image_url="https://i.imgur.com/OvTKGze.jpg")
     track_18 = Track(user_id=7, album_id=4, genre_id=3, name="END OF LIFE ENTERTAINMENT SCENARIO #1", song_url="https://songsforsynthcloud.s3.amazonaws.com/SAINT+PEPSI+-+ENJOY+YOURSELF+(Music+Video+REUPLOAD).mp3", image_url="https://i.imgur.com/OvTKGze.jpg")
-    track_19 = Track(user_id=5, album_id=3, genre_id=1, name="Dream", song_url="https://songsforsynthcloud.s3.amazonaws.com/Kalax+-+Never+Let+You+Go.mp3", image_url="https://i.imgur.com/OvTKGze.jpg")
 
     db.session.add(track_1)
     db.session.add(track_2)
@@ -39,8 +38,6 @@ def seed_tracks():
     db.session.add(track_16)
     db.session.add(track_17)
     db.session.add(track_18)
-    db.session.add(track_19)
-
 
     db.session.commit()
 

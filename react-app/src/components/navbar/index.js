@@ -132,11 +132,11 @@ const Header = () => {
                     Home
                 </NavLink>
             </div>
-            <div className="streamLink">
+            {/* <div className="streamLink">
                 <NavLink to='/stream' className="stream">
                     Stream
                 </NavLink>
-            </div>
+            </div> */}
             <div className="search-container">
                 <input className="search-bar"
                 type="text"
