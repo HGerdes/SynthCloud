@@ -5,13 +5,15 @@ import tracks from './tracks';
 import albums from "./albums";
 import genres from "./genres"
 import users from "./users"
+import comments from "./comments"
 
 const rootReducer = combineReducers({
   session,
   tracks,
   albums,
   genres,
-  users
+  users,
+  comments
 });
 
 
