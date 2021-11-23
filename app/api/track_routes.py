@@ -6,8 +6,8 @@ track_routes = Blueprint("track", __name__)
 
 @track_routes.route("/")
 def get_all_tracks():
-    all_tracks = Track.query.all()
     find_all = []
+    all_tracks = Track.query.all()
     for track in all_tracks:
         user = User.query.get(track.user_id)
         find_all.append({"track":track.to_dict(), "user":user.to_dict()})
@@ -28,13 +28,13 @@ def addTrack():
     track = Track(user_id=new_track["user_id"], genre_id=new_track["genre_id"], album_id=new_track["album_id"],  name=new_track["name"], song_url=new_track["song_url"], image_url=new_track["image_url"])
     db.session.add(track)
     db.session.commit()
-    return {"msg": "ok"}
+    return {"msg": "track post ok"}
 
 @track_routes.route("/<int:id>/update", methods=["PUT"])
 def updateTrack(track_id):
     track = Track.query.filter_by(id=track_id).first()
-    track.name = data["name"]
-    track.genre = data["genre"]
+    track.name = request.json["name"]
+    track.genre = request.json["genre"]
     db.session.commit()
     return track.to_dict()
 

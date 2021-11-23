@@ -4,7 +4,7 @@ import { useHistory, NavLink } from 'react-router-dom';
 import { loadOneTrack } from '../../store/tracks';
 import { allGenres } from '../../store/genres';
 import WaveSurfer from 'wavesurfer.js';
-import { getTrackArtists } from '../../store/tracks';
+import { getCommentsForSong } from '../../store/comments';
 
 import "./singleTrack.css"
 
@@ -14,20 +14,19 @@ const SingleTrack = () => {
     const {pathname} = history.location;
     const uniqueTrackId = pathname.split("/")[2];
     const currentUser = useSelector(state => state.session.user);
-    const [url, seturl] = useState("");
-    let [isPlaying, setIsPlaying] = useState(false)
     let wavesurfer;
     const waveformRef = useRef(null);
 
-    const artists = useSelector(state => {
-        return state.tracks?.getTrackArtists;
-    })
-
     useEffect(() => {
         dispatch(loadOneTrack(uniqueTrackId))
+        dispatch(getCommentsForSong(uniqueTrackId))
     },[dispatch, uniqueTrackId])
 
     const oneTrack = useSelector(state => state.tracks?.getOneTrack);
+
+    const comments = useSelector(state => {
+        return state.comments.getAllComments?.combined;
+    })
 
     let song = oneTrack?.combined[0].track.song_url;
     // let song = 'http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3'
@@ -40,7 +39,7 @@ const SingleTrack = () => {
                 cursorColor: '#4353FF',
                 barWidth: 3,
                 barRadius: 3,
-                cursorWidth: 1,
+                cursorWidth: 3,
                 height: 200,
                 barGap: 1,
                 responsive: true
@@ -53,7 +52,6 @@ const SingleTrack = () => {
             wavesurfer.on('ready', function () {
                 document.querySelector(".playPause").addEventListener("click", function() {
                     wavesurfer.playPause()
-
                 })
             },[]);
 
@@ -64,7 +62,6 @@ const SingleTrack = () => {
     useEffect(() => {
         document.querySelector(".playPause")?.addEventListener("click", function() {
             if (this.classList.contains("fa-play")) {
-                console.log(this.classList)
                 this.classList.remove("fa-play")
                 this.classList.add("fa-pause")
             } else {
@@ -73,9 +70,6 @@ const SingleTrack = () => {
             }
         })
     },[this])
-
-
-
 
     return (
         <>
@@ -90,8 +84,19 @@ const SingleTrack = () => {
                         <div className="waveformContainer">
                             <div ref={waveformRef} className="waveform"> </div>
                             <i className="playPause fas fa-play"> </i>
-
                         </div>
+                    </div>
+                    <div className="hr" id="tophr"></div>
+                    <div className="commentContainer">
+                        {comments?.map((comment => (
+                            <div key={comment.id} className="comment">
+                                 {console.log("IN JSX", comment.comment.comment)}
+                                <div className="commentDetContainer">
+                                    <div className="commentUser">{comment.user.username}</div>
+                                    <div className="commentContent">{comment.comment.comment}</div>
+                                </div>
+                            </div>
+                         )))}
                     </div>
                 </div>
             </div>
