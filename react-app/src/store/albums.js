@@ -1,4 +1,5 @@
 const GET_ALBUMS = "/ALBUMS/getAlbums"
+const SEARCH_ALBUMS = "/ALBUMS/searchAlbums"
 
 const getAlbums = (getAllAlbums) => {
     return {
@@ -6,6 +7,29 @@ const getAlbums = (getAllAlbums) => {
         getAllAlbums
     }
 }
+
+const searchAlbums = (albums) => {
+    return {
+        type: SEARCH_ALBUMS,
+        albums
+    }
+}
+
+export const findAlbums = (results) => async (dispatch) => {
+    const res = await fetch("/api/albums/", {
+        method: "POST",
+        hearders: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({results})
+    })
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(searchAlbums(data))
+    }
+}
+
+
 
 export const allAlbums = () => async (dispatch) => {
     const response = await fetch("/api/albums/")

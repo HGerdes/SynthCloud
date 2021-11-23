@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "JohnnyFever";
+    src: local("JohnnyFever"), url(./fonts/JohnnyFever/johnnyfever.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "ZeroesOne";
+    src: local("ZeroesOne"), url(./fonts/Zeroes/zeroesone.ttf) format("opentype");
+}

@@ -8,9 +8,14 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
+import "./app.css";
+
 
 import HomePage from "./components/HomePage";
 import UploadSongForm from './components/upload';
+import Header from './components/navbar';
+import SingleTrack from './components/SingleTrack';
+import Splash from './components/Splash';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -29,25 +34,41 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
       <Switch>
+        <Route path="/" exact={true}>
+          <Header />
+          <Splash />
+        </Route>
         <Route path='/login' exact={true}>
+          <Header />
           <LoginForm />
         </Route>
         <Route path='/sign-up' exact={true}>
+          <Header />
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        <ProtectedRoute path='/users' exact={true}>
+          <Header />
           <UsersList/>
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        <ProtectedRoute path='/users/:userId' exact={true}>
+          <Header />
           <User />
         </ProtectedRoute>
         <ProtectedRoute path='/home' exact={true} >
+          <Header />
           <HomePage />
         </ProtectedRoute>
         <ProtectedRoute path='/upload' exact={true} >
+          <Header />
           <UploadSongForm />
+        </ProtectedRoute>
+        <ProtectedRoute path='/tracks/:id' exact={true} >
+          <Header />
+          <SingleTrack />
+        </ProtectedRoute>
+        <ProtectedRoute path='/stream' exact={true} >
+          <Header />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
