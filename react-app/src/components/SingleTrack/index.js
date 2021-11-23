@@ -40,7 +40,7 @@ const SingleTrack = () => {
                 cursorColor: '#4353FF',
                 barWidth: 3,
                 barRadius: 3,
-                cursorWidth: 1,
+                cursorWidth: 3,
                 height: 200,
                 barGap: 1,
                 responsive: true
