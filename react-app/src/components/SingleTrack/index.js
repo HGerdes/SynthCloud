@@ -3,8 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, NavLink } from 'react-router-dom';
 import { loadOneTrack } from '../../store/tracks';
 import { allGenres } from '../../store/genres';
+import { createComment } from '../../store/comments';
 import WaveSurfer from 'wavesurfer.js';
 import { getCommentsForSong } from '../../store/comments';
+import { deleteComment } from '../../store/comments';
+import { editSingleComment } from '../../store/comments';
 
 import "./singleTrack.css"
 
@@ -16,6 +19,11 @@ const SingleTrack = () => {
     const currentUser = useSelector(state => state.session.user);
     let wavesurfer;
     const waveformRef = useRef(null);
+    let userId;
+
+    if (currentUser) {
+        userId = currentUser.id;
+    }
 
     useEffect(() => {
         dispatch(loadOneTrack(uniqueTrackId))
@@ -71,6 +79,41 @@ const SingleTrack = () => {
         })
     },[this])
 
+    const [comment, setComment] = useState("");
+    const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        const errors = [];
+
+        if (comment.length < 1) {
+            errors.push("Write a little more for your review")
+        }
+
+        if (comment.length > 255) {
+            errors.push("Please shorten your review (255 characters max)")
+        }
+
+        setErrors(errors)
+    },[comment])
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        const payload = {
+            user_id: userId,
+            track_id: +uniqueTrackId,
+            comment
+        };
+        console.log("payload", payload)
+        await dispatch(createComment(payload, uniqueTrackId));
+        history.push(`/tracks/${uniqueTrackId}`)
+    };
+
+    const deleteButton = (id) => {
+        dispatch(deleteComment(id))
+        window.location.reload();
+    }
+
     return (
         <>
             <div className="singleTrackPageContainer">
@@ -86,14 +129,37 @@ const SingleTrack = () => {
                             <i className="playPause fas fa-play"> </i>
                         </div>
                     </div>
+                    <div className="createCommentContainer">
+                        <form className="newCommentForm" onSubmit={onSubmit}>
+                            <ul className="errors">
+                                {errors.map(error => (
+                                    <li key={error}>{error}</li>
+                                ))}
+                            </ul>
+                            <div className="enterCommentField">
+                                <textarea
+                                    name="comment"
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                    placeholder="Write a comment"
+                                />
+                            </div>
+                            <button className="subButt" disabled={errors.length > 0} type="submit">Submit comment</button>
+                        </form>
+                    </div>
                     <div className="hr" id="tophr"></div>
                     <div className="commentContainer">
                         {comments?.map((comment => (
                             <div key={comment.id} className="comment">
-                                 {console.log("IN JSX", comment.comment.comment)}
                                 <div className="commentDetContainer">
                                     <div className="commentUser">{comment.user.username}</div>
                                     <div className="commentContent">{comment.comment.comment}</div>
+                                    <div className="editCommentBtnContainer">
+                                    <NavLink to={`/comments/${comment.id}/edit`}>
+                                    {currentUser && currentUser.id === Number(comment.comment.user_id) && (<button className="edtRevBtn">edit</button>)}
+                                    </NavLink>
+                                    {currentUser && currentUser.id === Number(comment.comment.user_id) && (<button className="delRevBtb" onClick={() => deleteButton(comment.comment.id)}>delete</button>)}
+                                    </div>
                                 </div>
                             </div>
                          )))}

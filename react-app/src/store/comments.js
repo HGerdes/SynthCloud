@@ -49,10 +49,14 @@ export const getCommentsForSong = (id) => async dispatch => {
 }
 
 export const createComment = (comment, id) => async dispatch => {
-    const response = await (`/api/comments/${id}/new`, {
+    const response = await fetch(`/api/comments/new`, {
         method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
         body: JSON.stringify(comment)
     })
+    console.log("response", response, id)
 
     if (response.ok) {
         const comment = await response.json();
@@ -62,7 +66,7 @@ export const createComment = (comment, id) => async dispatch => {
 }
 
 export const getSingleComment = (id) => async dispatch => {
-    const response = await fetch(`/api/comments/${id}/edit`)
+    const response = await fetch(`/api/comments/list/${id}`)
     if (response.ok) {
         const comment = await response.json();
         dispatch(loadOneComment(comment))
@@ -83,11 +87,16 @@ export const editSingleComment = (comment) => async dispatch => {
 }
 
 export const deleteComment = (id) => async dispatch => {
-    const response = await fetch(`/api/comment/${id}`, {
-        method: "DELETE"
+    const response = await fetch(`/api/comments/list/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+          },
     });
+    console.log("inDelCom")
 
     if (response.ok) {
+        console.log("#$$#$", response)
         const comment = await response.json();
         dispatch(removeComment(comment))
     }
@@ -121,7 +130,7 @@ const commentReducer = (state = initialState, action) => {
         case DELETE_COMMENT: {
             return {
                 ...state,
-                deleteReview: action.deleteComment
+                deleteComment: action.deleteComment
             }
         }
 
