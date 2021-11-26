@@ -98,15 +98,36 @@ export const removeTrack = (track) => async dispatch => {
     }
 }
 
-export const createTrack = (track) => async dispatch => {
+export const createTrack = (fileForm) => async dispatch => {
+    const {
+        user_id,
+        album_id,
+        genre_id,
+        name,
+        file,
+        image_url
+    } = fileForm;
+
+    const form = new FormData();
+    form.append("user_id", user_id);
+    form.append("album_id", album_id);
+    form.append("genre_id", genre_id);
+    form.append("name", name);
+    form.append("file", file);
+    form.append("image_url", image_url);
+
+    console.log("FILEFORM", form)
+
     const response = await fetch(`/api/tracks/new`, {
         method: "POST",
-        body: JSON.stringify(track),
-        headers: {"Content-Type": "application/json"}
-    })
+        headers: {"Content-Type": "application/json"},
+        body: form,
 
+    })
+    console.log("REEEEEEEEEEEEEEEEE", response.body)
     if (response.ok) {
         const data = await response.json();
+        console.log("DAAAATA", data)
         dispatch(addTrack(data))
     }
 }

@@ -11,11 +11,12 @@ const UploadSongForm = () => {
     const userId = currentUser.id;
     const dispatch = useDispatch();
 
-    const [name, setName] = useState("")
-    const [genre, setGenre] = useState(1)
-    const [songUrl, setSongUrl] = useState("")
-    const [imageUrl, setImageUrl] = useState("")
-    const [errors, setErrors] = useState([])
+    const [name, setName] = useState("");
+    const [genre, setGenre] = useState(1);
+    const [songUrl, setSongUrl] = useState("");
+    const [url, setUrl] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
         dispatch(allGenres())
@@ -46,7 +47,7 @@ const UploadSongForm = () => {
             genre_id: genre,
             album_id: 1,
             name,
-            song_url: songUrl,
+            file: songUrl,
             image_url: imageUrl,
         }
         console.log(payload)
@@ -81,10 +82,12 @@ const UploadSongForm = () => {
                         </select> */}
                         <div className="trackURL"> Track URL:
                             <input
-                                type="songUrl"
+                                type="file"
                                 name="songUrl"
-                                value={songUrl}
-                                onChange={(e) => setSongUrl(e.target.value)}
+                                accept="audio/*"
+                                onChange={(e) => {
+                                    setSongUrl(e.target.files[0]);
+                                }}
                             />
                         </div>
                         <div className="imageURL"> Image URL:

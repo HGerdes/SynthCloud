@@ -22,13 +22,31 @@ def getOneTrack(id):
     return {"combined":find_one}
     # return oneTrack.to_dict()
 
-@track_routes.route("/new", methods=["POST"])
-def addTrack():
-    new_track = request.json
-    track = Track(user_id=new_track["user_id"], genre_id=new_track["genre_id"], album_id=new_track["album_id"],  name=new_track["name"], song_url=new_track["song_url"], image_url=new_track["image_url"])
-    db.session.add(track)
-    db.session.commit()
-    return {"msg": "track post ok"}
+# @track_routes.route("/new", methods=["POST"])
+# def addTrack():
+#     new_track = request.json
+#     track = Track(user_id=new_track["user_id"], genre_id=new_track["genre_id"], album_id=new_track["album_id"],  name=new_track["name"], song_url=new_track["song_url"], image_url=new_track["image_url"])
+#     db.session.add(track)
+#     db.session.commit()
+#     return {"msg": "track post ok"}
+
+
+  #Don't forget to register your Blueprint
+
+@track_routes.route('/new', methods=["POST"])
+@login_required
+def upload_file():
+    if "file" not in request.files:
+        return "No user_file key in request.files"
+
+    file = request.files["file"]
+
+    if file:
+        file_url = upload_file_to_s3(file, Config.S3_BUCKET)
+        track = Track(user_id=new_track["user_id"], genre_id=new_track["genre_id"], album_id=new_track["album_id"],  name=new_track["name"], song_url=file_url, image_url=new_track["image_url"])
+        db.session.add(track)
+        db.session.commit()
+    else: return "No File Attached!"
 
 @track_routes.route("/<int:id>/update", methods=["PUT"])
 def updateTrack(track_id):
