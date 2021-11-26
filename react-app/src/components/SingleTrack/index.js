@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, NavLink } from 'react-router-dom';
-import { loadOneTrack } from '../../store/tracks';
-import { allGenres } from '../../store/genres';
-import { createComment } from '../../store/comments';
-import WaveSurfer from 'wavesurfer.js';
-import { getCommentsForSong } from '../../store/comments';
-import { deleteComment } from '../../store/comments';
-import { editSingleComment } from '../../store/comments';
+import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory, NavLink } from "react-router-dom";
+import { loadOneTrack } from "../../store/tracks";
+import { allGenres } from "../../store/genres";
+import { createComment } from "../../store/comments";
+import WaveSurfer from "wavesurfer.js";
+import { getCommentsForSong } from "../../store/comments";
+import { deleteComment } from "../../store/comments";
+import { editSingleComment } from "../../store/comments";
 
 import "./singleTrack.css"
 
@@ -36,15 +36,17 @@ const SingleTrack = () => {
         return state.comments.getAllComments?.combined;
     })
 
+    let [count, setCount] = useState(0)
+
     let song = oneTrack?.combined[0].track.song_url;
-    // let song = 'http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3'
+    // let song = "http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3"
     useEffect(() => {
         if (waveformRef.current) {
             wavesurfer = WaveSurfer.create({
                 container: waveformRef.current,
-                waveColor: '#D9DCFF',
-                progressColor: '#fe3218',
-                cursorColor: '#4353FF',
+                waveColor: "#D9DCFF",
+                progressColor: "#fe3218",
+                cursorColor: "#4353FF",
                 barWidth: 3,
                 barRadius: 3,
                 cursorWidth: 3,
@@ -57,7 +59,7 @@ const SingleTrack = () => {
                 wavesurfer.load(song);
             }
 
-            wavesurfer.on('ready', function () {
+            wavesurfer.on("ready", function () {
                 document.querySelector(".playPause").addEventListener("click", function() {
                     wavesurfer.playPause()
                 })
@@ -65,7 +67,7 @@ const SingleTrack = () => {
 
             return () => wavesurfer.destroy();
         }
-    },[waveformRef.current]);
+    },[waveformRef.current, count]);
 
     useEffect(() => {
         document.querySelector(".playPause")?.addEventListener("click", function() {
@@ -105,14 +107,17 @@ const SingleTrack = () => {
             comment
         };
         console.log("payload", payload)
-        await dispatch(createComment(payload, uniqueTrackId));
-        history.push(`/tracks/${uniqueTrackId}`)
+        await dispatch(createComment(payload, uniqueTrackId)).then(() => dispatch(getCommentsForSong(uniqueTrackId)));
+        setComment("")
     };
 
     const deleteButton = (id) => {
-        dispatch(deleteComment(id))
-        window.location.reload();
+        dispatch(deleteComment(id)).then(() => dispatch(getCommentsForSong(uniqueTrackId)));
     }
+
+    useEffect(() => {
+        count += 1;
+    })
 
     return (
         <>
@@ -154,10 +159,21 @@ const SingleTrack = () => {
                                 <div className="commentDetContainer">
                                     <div className="commentUser">{comment.user.username}</div>
                                     <div className="commentContent">{comment.comment.comment}</div>
+                                    <input className="editCommentInput hidden"  />
+                                    {currentUser && currentUser.id === Number(comment.comment.user_id) && <>(<button className="editBtn" onClick={() => {
+                                        document.querySelector(".commentContent").classList.add("hidden")
+                                        document.querySelector(".editBtn").classList.add("hidden")
+                                        document.querySelector(".editCommentInput").classList.remove("hidden")
+                                        document.querySelector(".postEditCommentBtn").classList.remove("hidden")
+
+                                    }}>Edit Comment</button>
+                                    <button className="postEditCommentBtn hidden" onClick={() => {
+                                        document.querySelector(".commentContent").classList.remove("hidden")
+                                        document.querySelector(".editBtn").classList.remove("hidden")
+                                        document.querySelector(".editCommentInput").classList.add("hidden")
+                                        document.querySelector(".postEditCommentBtn").classList.add("hidden")
+                                    }}>Post Comment</button>)</>}
                                     <div className="editCommentBtnContainer">
-                                    <NavLink to={`/comments/${comment.id}/edit`}>
-                                    {currentUser && currentUser.id === Number(comment.comment.user_id) && (<button className="edtRevBtn">edit</button>)}
-                                    </NavLink>
                                     {currentUser && currentUser.id === Number(comment.comment.user_id) && (<button className="delRevBtb" onClick={() => deleteButton(comment.comment.id)}>delete</button>)}
                                     </div>
                                 </div>
