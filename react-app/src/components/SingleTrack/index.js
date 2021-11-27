@@ -88,11 +88,11 @@ const SingleTrack = () => {
         const errors = [];
 
         if (comment.length < 1) {
-            errors.push("Write a little more for your review")
+            errors.push("Comments can't be empty")
         }
 
         if (comment.length > 255) {
-            errors.push("Please shorten your review (255 characters max)")
+            errors.push("Please shorten your comment (255 characters max)")
         }
 
         setErrors(errors)
@@ -157,7 +157,7 @@ const SingleTrack = () => {
                         {comments?.map((comment => (
                             <div key={comment.id} className="comment">
                                 <div className="commentDetContainer">
-                                    <div className="commentUser">{comment.user.username}</div>
+                                    <div className="commentUser" id="commentEle">{comment.user.username}</div>
                                     <div className="commentContent">{comment.comment.comment}</div>
                                     <input className="editCommentInput hidden"  />
                                     {currentUser && currentUser.id === Number(comment.comment.user_id) && <>(<button className="editBtn" onClick={() => {

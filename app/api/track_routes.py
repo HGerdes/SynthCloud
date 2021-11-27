@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import Track, db, User
+from app.aws_s3 import *
+import boto3
+import botocore
 
 track_routes = Blueprint("track", __name__)
 
@@ -35,7 +38,7 @@ def getOneTrack(id):
 
 @track_routes.route('/new', methods=["POST"])
 @login_required
-def upload_file():
+def addTrack():
     if "file" not in request.files:
         return "No user_file key in request.files"
 
@@ -43,9 +46,10 @@ def upload_file():
 
     if file:
         file_url = upload_file_to_s3(file, Config.S3_BUCKET)
-        track = Track(user_id=new_track["user_id"], genre_id=new_track["genre_id"], album_id=new_track["album_id"],  name=new_track["name"], song_url=file_url, image_url=new_track["image_url"])
+        track = Track(user_id=request.form.get("user_id"), genre_id=request.form.get("genre_id"), album_id=request.form.get("album_id"),  name=request.form.get("name"), song_url=file_url, image_url=request.form.get("image_url"))
         db.session.add(track)
         db.session.commit()
+        return "ok"
     else: return "No File Attached!"
 
 @track_routes.route("/<int:id>/update", methods=["PUT"])

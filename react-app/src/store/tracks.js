@@ -120,16 +120,15 @@ export const createTrack = (fileForm) => async dispatch => {
 
     const response = await fetch(`/api/tracks/new`, {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: form,
+        body: form
 
     })
-    console.log("REEEEEEEEEEEEEEEEE", response.body)
-    if (response.ok) {
-        const data = await response.json();
-        console.log("DAAAATA", data)
-        dispatch(addTrack(data))
-    }
+    // console.log("REEEEEEEEEEEEEEEEE", response.body)
+    // if (response.ok) {
+    //     const data = await response.json();
+    //     console.log("DAAAATA", data)
+    //     dispatch(addTrack(data))
+    // }
 }
 
 export const findTracks = (results) => async (dispatch) => {
