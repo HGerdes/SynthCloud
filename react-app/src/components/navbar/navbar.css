@@ -57,6 +57,7 @@
 }
 .navbarObjectsContainer > * > *:hover {
     color: rgb(196,0,247);
+    text-shadow: 0 0 1px rgb(196,0,247), 0 0 12px rgb(196,0,247), 0 0 18px rgb(196,0,247);
 }
 
 .search-container {
@@ -147,7 +148,7 @@ span {
     user-select: none;
 }
 
-.accoun:active {
+.account:active {
 }
 
 .account-dropdown {

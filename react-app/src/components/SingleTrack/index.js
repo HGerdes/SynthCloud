@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, NavLink } from 'react-router-dom';
-import { loadOneTrack } from '../../store/tracks';
-import { allGenres } from '../../store/genres';
-import WaveSurfer from 'wavesurfer.js';
-import { getCommentsForSong } from '../../store/comments';
+import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory, NavLink } from "react-router-dom";
+import { loadOneTrack } from "../../store/tracks";
+import { allGenres } from "../../store/genres";
+import { createComment } from "../../store/comments";
+import WaveSurfer from "wavesurfer.js";
+import { getCommentsForSong } from "../../store/comments";
+import { deleteComment } from "../../store/comments";
+import { editSingleComment } from "../../store/comments";
 
 import "./singleTrack.css"
 
@@ -16,6 +19,11 @@ const SingleTrack = () => {
     const currentUser = useSelector(state => state.session.user);
     let wavesurfer;
     const waveformRef = useRef(null);
+    let userId;
+
+    if (currentUser) {
+        userId = currentUser.id;
+    }
 
     useEffect(() => {
         dispatch(loadOneTrack(uniqueTrackId))
@@ -28,15 +36,17 @@ const SingleTrack = () => {
         return state.comments.getAllComments?.combined;
     })
 
+    let [count, setCount] = useState(0)
+
     let song = oneTrack?.combined[0].track.song_url;
-    // let song = 'http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3'
+    // let song = "http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3"
     useEffect(() => {
         if (waveformRef.current) {
             wavesurfer = WaveSurfer.create({
                 container: waveformRef.current,
-                waveColor: '#D9DCFF',
-                progressColor: '#fe3218',
-                cursorColor: '#4353FF',
+                waveColor: "#D9DCFF",
+                progressColor: "#fe3218",
+                cursorColor: "#4353FF",
                 barWidth: 3,
                 barRadius: 3,
                 cursorWidth: 3,
@@ -49,7 +59,7 @@ const SingleTrack = () => {
                 wavesurfer.load(song);
             }
 
-            wavesurfer.on('ready', function () {
+            wavesurfer.on("ready", function () {
                 document.querySelector(".playPause").addEventListener("click", function() {
                     wavesurfer.playPause()
                 })
@@ -57,7 +67,7 @@ const SingleTrack = () => {
 
             return () => wavesurfer.destroy();
         }
-    },[waveformRef.current]);
+    },[waveformRef.current, count]);
 
     useEffect(() => {
         document.querySelector(".playPause")?.addEventListener("click", function() {
@@ -70,6 +80,44 @@ const SingleTrack = () => {
             }
         })
     },[this])
+
+    const [comment, setComment] = useState("");
+    const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        const errors = [];
+
+        if (comment.length < 1) {
+            errors.push("Comments can't be empty")
+        }
+
+        if (comment.length > 255) {
+            errors.push("Please shorten your comment (255 characters max)")
+        }
+
+        setErrors(errors)
+    },[comment])
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        const payload = {
+            user_id: userId,
+            track_id: +uniqueTrackId,
+            comment
+        };
+        console.log("payload", payload)
+        await dispatch(createComment(payload, uniqueTrackId)).then(() => dispatch(getCommentsForSong(uniqueTrackId)));
+        setComment("")
+    };
+
+    const deleteButton = (id) => {
+        dispatch(deleteComment(id)).then(() => dispatch(getCommentsForSong(uniqueTrackId)));
+    }
+
+    useEffect(() => {
+        count += 1;
+    })
 
     return (
         <>
@@ -86,14 +134,48 @@ const SingleTrack = () => {
                             <i className="playPause fas fa-play"> </i>
                         </div>
                     </div>
+                    <div className="createCommentContainer">
+                        <form className="newCommentForm" onSubmit={onSubmit}>
+                            <ul className="errors">
+                                {errors.map(error => (
+                                    <li key={error}>{error}</li>
+                                ))}
+                            </ul>
+                            <div className="enterCommentField">
+                                <textarea
+                                    name="comment"
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                    placeholder="Write a comment"
+                                />
+                            </div>
+                            <button className="subButt" disabled={errors.length > 0} type="submit">Submit comment</button>
+                        </form>
+                    </div>
                     <div className="hr" id="tophr"></div>
                     <div className="commentContainer">
                         {comments?.map((comment => (
                             <div key={comment.id} className="comment">
-                                 {console.log("IN JSX", comment.comment.comment)}
                                 <div className="commentDetContainer">
-                                    <div className="commentUser">{comment.user.username}</div>
+                                    <div className="commentUser" id="commentEle">{comment.user.username}</div>
                                     <div className="commentContent">{comment.comment.comment}</div>
+                                    <input className="editCommentInput hidden"  />
+                                    {currentUser && currentUser.id === Number(comment.comment.user_id) && <>(<button className="editBtn" onClick={() => {
+                                        document.querySelector(".commentContent").classList.add("hidden")
+                                        document.querySelector(".editBtn").classList.add("hidden")
+                                        document.querySelector(".editCommentInput").classList.remove("hidden")
+                                        document.querySelector(".postEditCommentBtn").classList.remove("hidden")
+
+                                    }}>Edit Comment</button>
+                                    <button className="postEditCommentBtn hidden" onClick={() => {
+                                        document.querySelector(".commentContent").classList.remove("hidden")
+                                        document.querySelector(".editBtn").classList.remove("hidden")
+                                        document.querySelector(".editCommentInput").classList.add("hidden")
+                                        document.querySelector(".postEditCommentBtn").classList.add("hidden")
+                                    }}>Post Comment</button>)</>}
+                                    <div className="editCommentBtnContainer">
+                                    {currentUser && currentUser.id === Number(comment.comment.user_id) && (<button className="delRevBtb" onClick={() => deleteButton(comment.comment.id)}>delete</button>)}
+                                    </div>
                                 </div>
                             </div>
                          )))}
