@@ -75,7 +75,8 @@ export const getSingleComment = (id) => async dispatch => {
 }
 
 export const editSingleComment = (comment) => async dispatch => {
-    const response = await fetch(`/api/comments/${comment.id}/edit`, {
+    console.log("store COMMMMMMENT", comment)
+    const response = await fetch(`/api/comments/${comment.id}`, {
         method: "PUT",
         body: JSON.stringify(comment)
     });
@@ -96,7 +97,6 @@ export const deleteComment = (id) => async dispatch => {
     console.log("inDelCom")
 
     if (response.ok) {
-        console.log("#$$#$", response)
         const comment = await response.json();
         dispatch(removeComment(comment))
     }

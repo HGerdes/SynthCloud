@@ -10,6 +10,7 @@ import { deleteComment } from "../../store/comments";
 import { editSingleComment } from "../../store/comments";
 
 import "./singleTrack.css"
+import EditButtonFormModal from "../EditButtonModal";
 
 const SingleTrack = () => {
     const dispatch = useDispatch();
@@ -155,27 +156,14 @@ const SingleTrack = () => {
                     <div className="hr" id="tophr"></div>
                     <div className="commentContainer">
                         {comments?.map((comment => (
+
                             <div key={comment.id} className="comment">
                                 <div className="commentDetContainer">
                                     <div className="commentUser" id="commentEle">{comment.user.username}</div>
                                     <div className="commentContent">{comment.comment.comment}</div>
-                                    <input className="editCommentInput hidden"  />
-                                    {currentUser && currentUser.id === Number(comment.comment.user_id) && <>(<button className="editBtn" onClick={() => {
-                                        document.querySelector(".commentContent").classList.add("hidden")
-                                        document.querySelector(".editBtn").classList.add("hidden")
-                                        document.querySelector(".editCommentInput").classList.remove("hidden")
-                                        document.querySelector(".postEditCommentBtn").classList.remove("hidden")
-
-                                    }}>Edit Comment</button>
-                                    <button className="postEditCommentBtn hidden" onClick={() => {
-                                        document.querySelector(".commentContent").classList.remove("hidden")
-                                        document.querySelector(".editBtn").classList.remove("hidden")
-                                        document.querySelector(".editCommentInput").classList.add("hidden")
-                                        document.querySelector(".postEditCommentBtn").classList.add("hidden")
-                                    }}>Post Comment</button>)</>}
-                                    <div className="editCommentBtnContainer">
                                     {currentUser && currentUser.id === Number(comment.comment.user_id) && (<button className="delRevBtb" onClick={() => deleteButton(comment.comment.id)}>delete</button>)}
-                                    </div>
+                                    {console.log("in index comment.comment.comment", comment.comment.comment)}
+                                    <EditButtonFormModal theComment={comment}/>
                                 </div>
                             </div>
                          )))}
