@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect, NavLink } from "react-router-dom";
 import { login } from "../../store/session";
 import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignUpFormModal";
 import "./splash.css"
 
 
@@ -32,10 +33,10 @@ const Splash = () => {
 
                     <div className="enterSiteContainer">
                         <div className="splashSignUp">
-                            <NavLink to="/signup" className="splashSignUpLink splashBtn">Sign Up</NavLink>
+                            <SignupFormModal />
                         </div>
                         <div className="splashLogin" >
-                                <LoginFormModal />
+                            <LoginFormModal />
                         </div>
                         <div className="splashDemoBtn">
                             <button onClick={demo} className="splashDemoBtn splashBtn">Demo User</button>
