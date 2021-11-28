@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import EditButtonForm from './EditButtonForm';
 
-function EditButtonFormModal() {
+function EditButtonFormModal(props) {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -10,7 +10,7 @@ function EditButtonFormModal() {
             <button className="loginbtn" onClick={() => setShowModal(true)}>Log In</button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <EditButtonForm />
+                    <EditButtonForm theComment={props.theComment}/>
                 </Modal>
             )}
         </>

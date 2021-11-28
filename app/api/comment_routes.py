@@ -1,6 +1,9 @@
-from flask import Blueprint, jsonify, request
+import os
+
+from flask import Blueprint, jsonify, request, Flask
 from flask_login import login_required
 from app.models import Comment, db, User
+from app.forms import editCommentForm
 
 comment_routes = Blueprint("comment", __name__)
 
@@ -21,7 +24,7 @@ def get_comments_for_song(track_id):
     return {"list": [singleComment.to_dict() for singleComment in all_track_comments], "combined":find_all}
 
 
-@comment_routes.route("/list/<int:id>")
+@comment_routes.route("/list/<int:id>", methods=["GET"])
 def get_one_comment(id):
     comment = Comment.query.get(id)
     return {"comment": comment.to_dict()}
@@ -37,11 +40,15 @@ def create_comment():
     return{"msg": "comment post ok"}
 
 
-@comment_routes.route("/<int:id>/update)", methods=["PUT"])
+@comment_routes.route("/edit/<int:comment_id>)", methods=["PUT"])
 @login_required
 def update_comment(comment_id):
-    comment = Comment.query.filter_by(id=comment_id).first()
-    comment.comment = request.json["comment"]
+    print("we're herererererererer")
+    comment = Comment.query.get(id)
+    # comment = Comment.query.filter_by(id=comment_id).get()
+    print("BEfsdfasdfasd", comment)
+    comment = request.json["comment"]
+    print("!!!!!!!!", comment)
     db.session.commit();
     return {"msg": "comment edit ok"}
 

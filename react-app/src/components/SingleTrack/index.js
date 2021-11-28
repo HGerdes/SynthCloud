@@ -163,7 +163,7 @@ const SingleTrack = () => {
                                     <div className="commentContent">{comment.comment.comment}</div>
                                     {currentUser && currentUser.id === Number(comment.comment.user_id) && (<button className="delRevBtb" onClick={() => deleteButton(comment.comment.id)}>delete</button>)}
                                     {console.log("in index comment.comment.comment", comment.comment.comment)}
-                                    <EditButtonFormModal theComment={comment}/>
+                                    <EditButtonFormModal theComment={comment.comment}/>
                                 </div>
                             </div>
                          )))}
