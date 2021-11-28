@@ -3,7 +3,6 @@ import os
 from flask import Blueprint, jsonify, request, Flask
 from flask_login import login_required
 from app.models import Comment, db, User
-from app.forms import editCommentForm
 
 comment_routes = Blueprint("comment", __name__)
 
