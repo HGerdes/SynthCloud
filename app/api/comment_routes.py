@@ -1,8 +1,9 @@
 import os
 
 from flask import Blueprint, jsonify, request, Flask
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import Comment, db, User
+from app.forms import EditCommentForm
 
 comment_routes = Blueprint("comment", __name__)
 
@@ -39,18 +40,41 @@ def create_comment():
     return{"msg": "comment post ok"}
 
 
-@comment_routes.route("/edit/<int:comment_id>)", methods=["PUT"])
+# @comment_routes.route("/list/<int:comment_id>", methods=["PATCH"])
+# @login_required
+# def update_comment(comment_id):
+#     comment = Comment.query.get(id)
+#     form =
+#     # comment = Comment.query.filter_by(id=comment_id).get()
+#     comment = int(request.json["comment"])
+#     db.session.commit();
+#     return {"msg": "comment edit ok"}
+
+@comment_routes.route("/list/<int:comment_id>", methods=["PATCH"])
 @login_required
 def update_comment(comment_id):
-    print("we're herererererererer")
-    comment = Comment.query.get(id)
-    # comment = Comment.query.filter_by(id=comment_id).get()
-    print("BEfsdfasdfasd", comment)
-    comment = request.json["comment"]
-    print("!!!!!!!!", comment)
-    db.session.commit();
-    return {"msg": "comment edit ok"}
+    comment = Comment.query.get(comment_id)
+    form = EditCommentForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        # comment.comment = Comment(comment=form.data['comment'])
+        comment.comment = form.data["comment"]
+        db.session.commit()
+        return comment.to_dict()
+    return jsonify(form.errors), 400
 
+# @comment_routes.route("/list/<int:comment_id>", methods=["PATCH"])
+# @login_required
+# def update_comment(comment_id):
+#     data = request.json
+#     if len(data['comment']) < 1:
+#         return {'error': 'Please create a comment'}, 400
+
+#     comment = Comment(user_id=current_user.id, track_id=data["track_id"], comment=data["comment"])
+#     db.session.add(comment)
+#     db.session.commit()
+
+#     return "Good"
 
 @comment_routes.route("/list/<int:comment_id>", methods=["DELETE"])
 @login_required
@@ -58,3 +82,4 @@ def delete_comment(comment_id):
     comment = Comment.query.filter_by(id=comment_id).first()
     db.session.delete(comment)
     db.session.commit()
+    return comment.to_dict()

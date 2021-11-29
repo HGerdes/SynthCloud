@@ -9,6 +9,7 @@ const EditComments = ({...props}) => {
     const onSubmit = async (e) => {
         e.preventDefault()
         console.log(props.theComment.id)
+        console.log("::::::sdfsdfsdfsd::::", comment)
         let editedComment = { id:props.theComment.id, comment:comment }
         console.log("editedcomment", editedComment)
         await dispatch(editSingleComment(editedComment))
@@ -22,7 +23,7 @@ const EditComments = ({...props}) => {
         <div>
             <form onSubmit={onSubmit}>
                 <input
-                    type="text"
+                    type="comment"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                 />

@@ -66,23 +66,21 @@ export const createComment = (comment, id) => async dispatch => {
 }
 
 export const editSingleComment = ({comment, id}) => async (dispatch) => {
-    console.log("store COMMMMMMENT", comment)
-    const response = await fetch(`/api/comments/edit/${id}`, {
-        method: "PUT",
+    console.log("!!!!!!!", comment, id)
+    const response = await fetch(`/api/comments/list/${id}`, {
+        method: "PATCH",
         headers: {
-            "Content-Type": "application/json"
+            "content-type": "application/json"
         },
-        body: JSON.stringify(comment)
+        body: JSON.stringify({comment})
     });
-    console.log("CCCCCC", id)
-    console.log("RReresdfsefsdf", comment)
-    console.log("RRRRRRRR", response)
-    console.log("JSON", JSON.stringify(comment))
+    console.log("##########", response)
     if (response.ok) {
         console.log("response ok")
-        const comment = await response.json();
-        dispatch(editComment(comment))
-        return comment;
+        const somethingElse = await response.json();
+        // console.log("%%%%%%%%%", somethingElse)
+        dispatch(editComment(somethingElse))
+        return somethingElse;
     }
 }
 

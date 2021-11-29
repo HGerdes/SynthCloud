@@ -1,8 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextField
-from wtforms.validators import DataRequired, Email, ValidationError
+from wtforms.fields import (StringField)
+from wtforms.validators import DataRequired, Length
 from app.models import User
 
-def editCommentForm(FlaskForm):
-    # Checking if password matches
-    comment=TextField("comment")
+class EditCommentForm(FlaskForm):
+    comment = StringField("Comment")
