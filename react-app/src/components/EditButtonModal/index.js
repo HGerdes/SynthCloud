@@ -7,7 +7,7 @@ function EditButtonFormModal(props) {
 
     return (
         <>
-            <button className="loginbtn" onClick={() => setShowModal(true)}>Log In</button>
+            <button className="editBtn" onClick={() => setShowModal(true)}>Edit</button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <EditButtonForm setShowModal={setShowModal} theComment={props.theComment}/>
