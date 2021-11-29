@@ -1,18 +1,23 @@
 import React,{ useEffect, useState } from 'react'
 import { useDispatch } from "react-redux";
-import { editSingleComment } from '../../store/comments'
+import { editSingleComment, getCommentsForSong } from '../../store/comments'
+import { useHistory } from "react-router-dom"
 
-const EditComments = ({...props}) => {
+const EditComments = ({setShowModal, ...props }) => {
     const dispatch = useDispatch()
     const [comment, setComment] = useState(props.theComment.comment)
-
+    const history = useHistory();
+    const {pathname} = history.location;
+    const uniqueTrackId = pathname.split("/")[2];
     const onSubmit = async (e) => {
         e.preventDefault()
-        console.log(props.theComment.id)
-        console.log("::::::sdfsdfsdfsd::::", comment)
         let editedComment = { id:props.theComment.id, comment:comment }
-        console.log("editedcomment", editedComment)
-        await dispatch(editSingleComment(editedComment))
+        const dispatchedComment = await dispatch(editSingleComment(editedComment))
+
+        if (dispatchedComment) {
+            dispatch(getCommentsForSong(uniqueTrackId))
+            setShowModal(false)
+        }
     }
 
     useEffect(() => {
