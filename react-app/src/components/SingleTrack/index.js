@@ -137,14 +137,14 @@ const SingleTrack = () => {
                     </div>
 
                     <div className="hr" id="tophr"></div>
+                    <ul className="errors">
+                                        {errors.map(error => (
+                                            <li key={error}>{error} </li>
+                                        ))}
+                                    </ul>
                     <div className="allCommentStuff">
                         <div className="createCommentContainer">
                             <form className="newCommentForm" onSubmit={onSubmit}>
-                                <ul className="errors">
-                                    {errors.map(error => (
-                                        <li key={error}>{error}</li>
-                                    ))}
-                                </ul>
                                 <div className="enterCommentField">
                                     <textarea
                                         className="commentField"
@@ -154,13 +154,14 @@ const SingleTrack = () => {
                                         placeholder="Write a comment"
                                     />
                                 </div>
-                                <button className="subButt" disabled={errors.length > 0} type="submit">Submit comment</button>
+                                <button className="subButt delComBtn" disabled={errors.length > 0} type="submit">Submit comment</button>
                             </form>
                         </div>
                         <div className="commentContainer">
                             {comments?.map((comment => (
                                 <div key={comment.id} className="comment">
                                     <div className="commentDetContainer">
+                                        <div className="commenthr" id="commenthr"></div>
                                         <div className="commentUser" id="commentEle">{comment.user.username}</div>
                                         <div className="commentContent">{comment.comment.comment}</div>
                                         <div className="commentBtnContainer">
