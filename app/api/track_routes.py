@@ -52,7 +52,7 @@ def addTrack():
         return "ok"
     else: return "No File Attached!"
 
-@track_routes.route("/<int:id>/update", methods=["PUT"])
+@track_routes.route("/<int:track_id>", methods=["PUT"])
 def updateTrack(track_id):
     track = Track.query.filter_by(id=track_id).first()
     track.name = request.json["name"]
@@ -60,9 +60,11 @@ def updateTrack(track_id):
     db.session.commit()
     return track.to_dict()
 
-@track_routes.route("/<int:id>/delete", methods=["DELETE"])
+
+@track_routes.route("/<int:track_id>", methods=["DELETE"])
 def remove_track(track_id):
     track = Track.query.filter_by(id=track_id).first()
+    print("TRAAAAAAAAAACK", track)
     db.session.delete(track)
     db.session.commit()
     return track.to_dict()

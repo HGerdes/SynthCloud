@@ -141,7 +141,6 @@ const SingleTrack = () => {
                             <div ref={waveformRef} className="waveform"> </div>
                         </div>
                     </div>
-
                     <div className="hr" id="tophr"></div>
                     <ul className="errors">
                                         {errors.map(error => (
