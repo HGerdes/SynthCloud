@@ -26,12 +26,12 @@
     margin-left: 400px;
 }
 
-.trackContainer {
+.profileTrackContainer {
     display: flex;
     margin-top: 20px;
 }
 
-.trackLink {
+.profileTrackLink {
     display: flex;
     width: 200px;
     margin-top: 20px;

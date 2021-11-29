@@ -23,7 +23,7 @@ const Profile = () => {
                         {tracks?.map(track => (
                         <div key={`${track.track?.id}`}>
                             {track.track?.user_id === userId ?
-                             <NavLink to={`/tracks/${track.track?.id}`} className="trackLink">
+                             <NavLink to={`/tracks/${track.track?.id}`} className="profileTrackLink">
                                 <div className="profileTrackname"> {track.track?.name}
                                     <img id="profileTrackImages" src={track.track?.image_url}>
                                     </img>
