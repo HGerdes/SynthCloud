@@ -7,6 +7,9 @@ class Comment(db.Model):
     track_id = db.Column(db.Integer, db.ForeignKey("tracks.id"), nullable=False)
     comment = db.Column(db.String(255), nullable=False)
 
+    users = db.relationship("User", back_populates="comments")
+    tracks = db.relationship("Track", back_populates="comments")
+
     def to_dict(self):
         return {
             "id": self.id,
@@ -14,6 +17,3 @@ class Comment(db.Model):
             "track_id": self.track_id,
             "comment": self.comment
         }
-
-    users = db.relationship("User", back_populates="comments")
-    tracks = db.relationship("Track", back_populates="comments")

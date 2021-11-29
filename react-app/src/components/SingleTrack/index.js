@@ -10,6 +10,7 @@ import { deleteComment } from "../../store/comments";
 import { editSingleComment } from "../../store/comments";
 
 import "./singleTrack.css"
+import EditButtonFormModal from "../EditButtonModal";
 
 const SingleTrack = () => {
     const dispatch = useDispatch();
@@ -130,55 +131,47 @@ const SingleTrack = () => {
                         <div className="singleTrackName">{oneTrack?.combined[0].track.name}</div>
                         <img className="singleTrackImage" src={oneTrack?.combined[0].track.image_url} alt=""></img>
                         <div className="waveformContainer">
-                            <div ref={waveformRef} className="waveform"> </div>
                             <i className="playPause fas fa-play"> </i>
+                            <div ref={waveformRef} className="waveform"> </div>
                         </div>
                     </div>
-                    <div className="createCommentContainer">
-                        <form className="newCommentForm" onSubmit={onSubmit}>
-                            <ul className="errors">
-                                {errors.map(error => (
-                                    <li key={error}>{error}</li>
-                                ))}
-                            </ul>
-                            <div className="enterCommentField">
-                                <textarea
-                                    name="comment"
-                                    value={comment}
-                                    onChange={(e) => setComment(e.target.value)}
-                                    placeholder="Write a comment"
-                                />
-                            </div>
-                            <button className="subButt" disabled={errors.length > 0} type="submit">Submit comment</button>
-                        </form>
-                    </div>
-                    <div className="hr" id="tophr"></div>
-                    <div className="commentContainer">
-                        {comments?.map((comment => (
-                            <div key={comment.id} className="comment">
-                                <div className="commentDetContainer">
-                                    <div className="commentUser" id="commentEle">{comment.user.username}</div>
-                                    <div className="commentContent">{comment.comment.comment}</div>
-                                    <input className="editCommentInput hidden"  />
-                                    {currentUser && currentUser.id === Number(comment.comment.user_id) && <>(<button className="editBtn" onClick={() => {
-                                        document.querySelector(".commentContent").classList.add("hidden")
-                                        document.querySelector(".editBtn").classList.add("hidden")
-                                        document.querySelector(".editCommentInput").classList.remove("hidden")
-                                        document.querySelector(".postEditCommentBtn").classList.remove("hidden")
 
-                                    }}>Edit Comment</button>
-                                    <button className="postEditCommentBtn hidden" onClick={() => {
-                                        document.querySelector(".commentContent").classList.remove("hidden")
-                                        document.querySelector(".editBtn").classList.remove("hidden")
-                                        document.querySelector(".editCommentInput").classList.add("hidden")
-                                        document.querySelector(".postEditCommentBtn").classList.add("hidden")
-                                    }}>Post Comment</button>)</>}
-                                    <div className="editCommentBtnContainer">
-                                    {currentUser && currentUser.id === Number(comment.comment.user_id) && (<button className="delRevBtb" onClick={() => deleteButton(comment.comment.id)}>delete</button>)}
+                    <div className="hr" id="tophr"></div>
+                    <ul className="errors">
+                                        {errors.map(error => (
+                                            <li key={error}>{error} </li>
+                                        ))}
+                                    </ul>
+                    <div className="allCommentStuff">
+                        <div className="createCommentContainer">
+                            <form className="newCommentForm" onSubmit={onSubmit}>
+                                <div className="enterCommentField">
+                                    <textarea
+                                        className="commentField"
+                                        name="comment"
+                                        value={comment}
+                                        onChange={(e) => setComment(e.target.value)}
+                                        placeholder="Write a comment"
+                                    />
+                                </div>
+                                <button className="subButt delComBtn" disabled={errors.length > 0} type="submit">Submit comment</button>
+                            </form>
+                        </div>
+                        <div className="commentContainer">
+                            {comments?.map((comment => (
+                                <div key={comment.id} className="comment">
+                                    <div className="commentDetContainer">
+                                        <div className="commenthr" id="commenthr"></div>
+                                        <div className="commentUser" id="commentEle">{comment.user.username}</div>
+                                        <div className="commentContent">{comment.comment.comment}</div>
+                                        <div className="commentBtnContainer">
+                                            {currentUser && currentUser.id === Number(comment.comment.user_id) && (<button className="delComBtn" onClick={() => deleteButton(comment.comment.id)}>delete</button>)}
+                                            {currentUser && currentUser.id === Number(comment.comment.user_id) && (<EditButtonFormModal theComment={comment.comment}/>)}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                         )))}
+                            )))}
+                        </div>
                     </div>
                 </div>
             </div>
