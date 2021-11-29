@@ -131,41 +131,46 @@ const SingleTrack = () => {
                         <div className="singleTrackName">{oneTrack?.combined[0].track.name}</div>
                         <img className="singleTrackImage" src={oneTrack?.combined[0].track.image_url} alt=""></img>
                         <div className="waveformContainer">
-                            <div ref={waveformRef} className="waveform"> </div>
                             <i className="playPause fas fa-play"> </i>
+                            <div ref={waveformRef} className="waveform"> </div>
                         </div>
                     </div>
-                    <div className="createCommentContainer">
-                        <form className="newCommentForm" onSubmit={onSubmit}>
-                            <ul className="errors">
-                                {errors.map(error => (
-                                    <li key={error}>{error}</li>
-                                ))}
-                            </ul>
-                            <div className="enterCommentField">
-                                <textarea
-                                    name="comment"
-                                    value={comment}
-                                    onChange={(e) => setComment(e.target.value)}
-                                    placeholder="Write a comment"
-                                />
-                            </div>
-                            <button className="subButt" disabled={errors.length > 0} type="submit">Submit comment</button>
-                        </form>
-                    </div>
-                    <div className="hr" id="tophr"></div>
-                    <div className="commentContainer">
-                        {comments?.map((comment => (
 
-                            <div key={comment.id} className="comment">
-                                <div className="commentDetContainer">
-                                    <div className="commentUser" id="commentEle">{comment.user.username}</div>
-                                    <div className="commentContent">{comment.comment.comment}</div>
-                                    {currentUser && currentUser.id === Number(comment.comment.user_id) && (<button className="delRevBtb" onClick={() => deleteButton(comment.comment.id)}>delete</button>)}
-                                    <EditButtonFormModal theComment={comment.comment}/>
+                    <div className="hr" id="tophr"></div>
+                    <div className="allCommentStuff">
+                        <div className="createCommentContainer">
+                            <form className="newCommentForm" onSubmit={onSubmit}>
+                                <ul className="errors">
+                                    {errors.map(error => (
+                                        <li key={error}>{error}</li>
+                                    ))}
+                                </ul>
+                                <div className="enterCommentField">
+                                    <textarea
+                                        className="commentField"
+                                        name="comment"
+                                        value={comment}
+                                        onChange={(e) => setComment(e.target.value)}
+                                        placeholder="Write a comment"
+                                    />
                                 </div>
-                            </div>
-                         )))}
+                                <button className="subButt" disabled={errors.length > 0} type="submit">Submit comment</button>
+                            </form>
+                        </div>
+                        <div className="commentContainer">
+                            {comments?.map((comment => (
+                                <div key={comment.id} className="comment">
+                                    <div className="commentDetContainer">
+                                        <div className="commentUser" id="commentEle">{comment.user.username}</div>
+                                        <div className="commentContent">{comment.comment.comment}</div>
+                                        <div className="commentBtnContainer">
+                                            {currentUser && currentUser.id === Number(comment.comment.user_id) && (<button className="delComBtn" onClick={() => deleteButton(comment.comment.id)}>delete</button>)}
+                                            {currentUser && currentUser.id === Number(comment.comment.user_id) && (<EditButtonFormModal theComment={comment.comment}/>)}
+                                        </div>
+                                    </div>
+                                </div>
+                            )))}
+                        </div>
                     </div>
                 </div>
             </div>

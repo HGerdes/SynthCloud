@@ -32,3 +32,8 @@
     box-shadow: 0px 0px 15px 5px rgb(222, 125, 246);
     letter-spacing: 2px;
 }
+
+.commentBtnContainer {
+    margin-top: 10px;
+    margin-left: -20px;
+}
