@@ -60,15 +60,21 @@ const SingleTrack = () => {
                 wavesurfer.load(song);
             }
 
+            wavesurfer.on("loading", function() {
+                document.querySelector(".playPause").classList.add("hidden");
+            })
+
             wavesurfer.on("ready", function () {
                 document.querySelector(".playPause").addEventListener("click", function() {
                     wavesurfer.playPause()
                 })
+
+                document.querySelector(".playPause").classList.remove("hidden")
             },[]);
 
             return () => wavesurfer.destroy();
         }
-    },[waveformRef.current, count]);
+    },[waveformRef.current, song]);
 
     useEffect(() => {
         document.querySelector(".playPause")?.addEventListener("click", function() {
@@ -135,7 +141,6 @@ const SingleTrack = () => {
                             <div ref={waveformRef} className="waveform"> </div>
                         </div>
                     </div>
-
                     <div className="hr" id="tophr"></div>
                     <ul className="errors">
                                         {errors.map(error => (

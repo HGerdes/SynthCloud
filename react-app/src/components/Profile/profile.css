@@ -26,27 +26,47 @@
     margin-left: 400px;
 }
 
-.trackContainer {
+.profileTrackLink {
     display: flex;
-    margin-top: 20px;
+    flex-direction: column;
 }
 
-.trackLink {
+.profileTrackContainer {
     display: flex;
-    width: 200px;
     margin-top: 20px;
-    text-decoration: none;
+
 }
 
-.profileTrackname {
+.profileImgNameContainer {
     display: flex;
-    flex-direction: row-reverse;
+    margin-top: 20px;
+    flex-direction: row;
     margin-left: 100px;
     gap: 20px;
+}
+
+.profileTrackName {
+    display: flex;
     font-size: 40px;
     font-family: JohnnyFever;
     color: rgb(0, 222, 222);
     text-shadow: 0 0 1px rgb(0,192, 192), 0 0 12px rgb(0,192, 192), 0 0 18px rgb(0,192, 192);
+}
+
+.trackNav {
+    text-decoration: none;
+}
+
+.profileButtContainer {
+    position: absolute;
+    gap: 20px;
+    height: 30px;
+    margin-left: 320px;
+    margin-top: 80px;
+}
+
+.delTrackBtn {
+    margin-right: 10px;
 }
 
 #profilehr {

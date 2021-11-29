@@ -88,7 +88,7 @@ export const editTrack = (track) => async dispatch => {
 }
 
 export const removeTrack = (track) => async dispatch => {
-    const response = await fetch(`/api/tracks/${track.id}/delete`, {
+    const response = await fetch(`/api/tracks/${track}`, {
         method: "DELETE"
     });
 
