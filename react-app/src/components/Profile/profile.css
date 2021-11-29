@@ -1,0 +1,59 @@
+.profilePageContainer {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+}
+
+.profilePageInnerStuff {
+    display: flex;
+    flex-direction: column;
+    background: rgba(192,0,255,.8);
+    background: linear-gradient(187deg, rgba(192,0,255,.8) 0%, rgba(76,205,254,.8) 100%);
+    min-width: 1140px;
+    margin-top: 60px;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.profileTitle {
+    font-family: JohnnyFever;
+    color: rgb(0, 222, 222);
+    text-shadow: 0 0 1px rgb(0,192, 192), 0 0 12px rgb(0,192, 192), 0 0 18px rgb(0,192, 192);
+    font-size: 60px;
+    margin-left: 400px;
+}
+
+.trackContainer {
+    display: flex;
+    margin-top: 20px;
+}
+
+.trackLink {
+    display: flex;
+    width: 200px;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+.profileTrackname {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-left: 100px;
+    gap: 20px;
+    font-size: 40px;
+    font-family: JohnnyFever;
+    color: rgb(0, 222, 222);
+    text-shadow: 0 0 1px rgb(0,192, 192), 0 0 12px rgb(0,192, 192), 0 0 18px rgb(0,192, 192);
+}
+
+#profilehr {
+    margin-left: 60px;
+}
+
+#profileTrackImages {
+    width: 200px;
+    height: 200px;
+}

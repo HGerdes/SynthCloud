@@ -16,6 +16,7 @@ import UploadSongForm from './components/upload';
 import Header from './components/navbar';
 import SingleTrack from './components/SingleTrack';
 import Splash from './components/Splash';
+import Profile from './components/Profile';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -66,6 +67,10 @@ function App() {
         <ProtectedRoute path='/tracks/:id' exact={true} >
           <Header />
           <SingleTrack />
+        </ProtectedRoute>
+        <ProtectedRoute path='/profile/:id' exact={true} >
+          <Header />
+          <Profile />
         </ProtectedRoute>
         <ProtectedRoute path='/stream' exact={true} >
           <Header />

@@ -36,8 +36,36 @@ const UploadSongForm = () => {
 
     useEffect(() => {
         const errors = [];
+        const imageTypes = ["png", "jpg", "jpeg", "gif"];
+        const imageType = imageUrl.split(".");
+        const imageExt = imageType[imageType.length-1];
 
-    },[]);
+        if (name.length < 1) {
+            errors.push("Track name can't be empty")
+        }
+
+        if (name.length > 250) {
+            errors.push("Shorten the name of your track (250 character limit)")
+        }
+
+        if (!imageTypes.includes(imageExt)) {
+            errors.push("Must be valid image (png, jpg, jpeg, gif")
+        }
+
+        if (imageUrl.length < 1) {
+            errors.push("Image URL can't be empty")
+        }
+
+        if (name.length > 250) {
+            errors.push("Shorten the length of your image URL (250 character limit)")
+        }
+
+        if (songUrl === "") {
+            errors.push("Please choose a file to upload")
+        }
+
+        setErrors(errors)
+    },[name, imageUrl, songUrl]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -58,51 +86,64 @@ const UploadSongForm = () => {
     return (
         <>
             <div className="uploadPageContainer">
-                <form className="newTrackForm" onSubmit={onSubmit}>
-                    <div className="uploadFormContainer">
-                        <div className="trackName"> Name of track:
-                            <input
-                                type="name"
-                                name="name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
+                <div className="uploadPageInnerStuff">
+                    <div className="uploadPageDesc">Upload a Track:</div>
+                    <div className="commenthr" id="uploadhr"></div>
+                    <form className="newTrackForm" onSubmit={onSubmit}>
+                        <div className="uploadFormContainer">
+                            <div className="uploadTrackName"> Name of track:
+                                <div className="inputUploadName">
+                                    <input
+                                        className="uploadName"
+                                        type="name"
+                                        name="name"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="genreSelContainer">
+                                <div className="genreSelTitle">Select the genre:</div>
+                                <select className="genreSelect" onChange={(e) => setGenre(e.target.value)}>
+                                    {genres?.map(genre =>
+                                        <option key={genre.id} value={genre.id}>{genre.genre_name}</option>
+                                    )}
+                                </select>
+                            </div>
+                            <div className="trackURL"> Track File:
+                                <input
+                                    className="uploadFile"
+                                    type="file"
+                                    name="songUrl"
+                                    accept="audio/*"
+                                    onChange={(e) => {
+                                        setSongUrl(e.target.files[0]);
+                                    }}
+                                />
+                            </div>
+                            <div className="imageURL"> Image URL:
+                                <div className="imageUrlContainer">
+                                    <input
+                                        className="imageUrlField"
+                                        type="imageUrl"
+                                        name="imageUrl"
+                                        value={imageUrl}
+                                        placeholder="i.e. https://i.imgur.com/OvTKGze.jpg"
+                                        onChange={(e) => setImageUrl(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="subBut">
+                                <button disabled={ errors.length > 0 } type="submit" className="uploadSubButt">Submit Track</button>
+                            </div>
+                            <ul className="errors">
+                                {errors.map(error => (
+                                    <li className="formError" key={error}>{error}</li>
+                                ))}
+                            </ul>
                         </div>
-                        <div className="genreSelTitle">Select the genre:</div>
-                        <select className="genreSelect" onChange={(e) => setGenre(e.target.value)}>
-                            {genres?.map(genre =>
-                                <option key={genre.id} value={genre.id}>{genre.genre_name}</option>
-                            )}
-                        </select>
-                        {/* <div className="albumName"> Select the album this track belongs to:</div>
-                        <select className="albumSelect" onChange={(e) => setAlbum(e.target.value)}>
-                            {albums?.map(album =>
-                                <option key={album.id} value={album.id}>{album.album_name}</option>
-                            )}
-                        </select> */}
-                        <div className="trackURL"> Track URL:
-                            <input
-                                type="file"
-                                name="songUrl"
-                                accept="audio/*"
-                                onChange={(e) => {
-                                    setSongUrl(e.target.files[0]);
-                                }}
-                            />
-                        </div>
-                        <div className="imageURL"> Image URL:
-                            <input
-                                type="imageUrl"
-                                name="imageUrl"
-                                value={imageUrl}
-                                onChange={(e) => setImageUrl(e.target.value)}
-                            />
-                        </div>
-                        <div className="subBut">
-                            <button disabled={ errors.length > 0 } type="submit">Submit Track</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </>
     )
