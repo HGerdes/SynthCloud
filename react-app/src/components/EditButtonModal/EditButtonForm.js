@@ -42,18 +42,20 @@ const EditComments = ({setShowModal, ...props }) => {
 
     return (
         <div>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} className="editSubmit">
+                <div className="editModalDesc">Edit your comment: </div>
                 <ul className="errors">
                     {errors.map(error => (
                         <li className="formError" key={error}>{error}</li>
                     ))}
                 </ul>
-                <input
+                <textarea
+                    className="commentForm"
                     type="comment"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                 />
-                <button type="submit" disabled={errors.length > 0}>submit</button>
+                <button type="submit" disabled={errors.length > 0} className="editSubButt">submit</button>
             </form>
         </div>
     )
