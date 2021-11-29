@@ -36,8 +36,36 @@ const UploadSongForm = () => {
 
     useEffect(() => {
         const errors = [];
+        const imageTypes = ["png", "jpg", "jpeg", "gif"];
+        const imageType = imageUrl.split(".");
+        const imageExt = imageType[imageType.length-1];
 
-    },[]);
+        if (name.length < 1) {
+            errors.push("Track name can't be empty")
+        }
+
+        if (name.length > 250) {
+            errors.push("Shorten the name of your track (250 character limit)")
+        }
+
+        if (!imageTypes.includes(imageExt)) {
+            errors.push("Must be valid image (png, jpg, jpeg, gif")
+        }
+
+        if (imageUrl.length < 1) {
+            errors.push("Image URL can't be empty")
+        }
+
+        if (name.length > 250) {
+            errors.push("Shorten the length of your image URL (250 character limit)")
+        }
+
+        if (songUrl === "") {
+            errors.push("Please choose a file to upload")
+        }
+
+        setErrors(errors)
+    },[name, imageUrl, songUrl]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -100,6 +128,7 @@ const UploadSongForm = () => {
                                         type="imageUrl"
                                         name="imageUrl"
                                         value={imageUrl}
+                                        placeholder="i.e. https://i.imgur.com/OvTKGze.jpg"
                                         onChange={(e) => setImageUrl(e.target.value)}
                                     />
                                 </div>
@@ -107,6 +136,11 @@ const UploadSongForm = () => {
                             <div className="subBut">
                                 <button disabled={ errors.length > 0 } type="submit" className="uploadSubButt">Submit Track</button>
                             </div>
+                            <ul className="errors">
+                                {errors.map(error => (
+                                    <li className="formError" key={error}>{error}</li>
+                                ))}
+                            </ul>
                         </div>
                     </form>
                 </div>
