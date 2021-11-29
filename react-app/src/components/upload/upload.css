@@ -1,4 +1,109 @@
 .uploadPageContainer {
-    position: relative;
-    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+}
+
+.uploadPageInnerStuff {
+    display: flex;
+    flex-direction: column;
+    background: rgba(192,0,255,.8);
+    background: linear-gradient(187deg, rgba(192,0,255,.8) 0%, rgba(76,205,254,.8) 100%);
+    min-width: 1140px;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.newTrackForm {
+    font-size: 30px;
+    font-family: Zeroesone;
+}
+
+.uploadFormContainer {
+    position: absolute;
+    justify-content: center;
+    flex-direction: column;
+    align-self: center;
+    margin-top: 100px;
+    margin-left: 370px;
+}
+
+.uploadTrackName {
+    display: flex;
+    flex-direction: row;
+}
+
+.inputUploadName {
+    margin-top: -5px;
+    margin-left: 10px;
+}
+
+.uploadName {
+    height: 20px;
+}
+
+.genreSelContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.genreSelect {
+    margin-left: 10px;
+    font-size: 20px;
+    font-family: Zeroesone;
+}
+
+.trackURL {
+    font-family: Zeroesone;
+}
+
+.uploadFile {
+    font-size: 20px;
+    margin-left: 10px;
+    font-family: Zeroesone;
+}
+
+.imageURL {
+    display: flex;
+    flex-direction: row;
+}
+
+.imageUrlContainer {
+    margin-top: -5px;
+}
+
+.imageUrlField {
+    height: 20px;
+    margin-left: 10px;
+}
+
+.uploadSubButt {
+    border: none;
+    border-radius: 15px;
+    background-color: rgb(196,0,247);
+    box-shadow: 0px 0px 15px 5px rgb(196,0,247);
+    font-size: 20px;
+    font-family: Zeroesone;
+    margin-top: 20px;
+    width: 200px;
+    height: 50px;
+    letter-spacing: 2px;
+}
+
+.uploadSubButt:hover {
+    background-color: rgb(222, 125, 246);
+    box-shadow: 0px 0px 15px 5px rgb(222, 125, 246);
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.uploadPageDesc {
+    margin-top: 100px;
+    margin-left: 430px;
+    font-size: 40px;
+    font-family: Zeroesone;
+
 }
