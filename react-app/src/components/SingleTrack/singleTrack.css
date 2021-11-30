@@ -33,12 +33,11 @@
 .waveformContainer {
     display: flex;
     flex-direction: column;
-    margin-top: -250px;
+    margin-top: -150px;
 }
 
 .waveform {
     width: 720px;
-    margin-bottom: 50px;
     position: absolute;
     margin-left: 15px;
 }
@@ -58,6 +57,10 @@
 	outline: inherit;
 }
 
+.singleTrackImage {
+    height: 250px;
+    width: 250px;
+}
 
 .singleTrackName {
     font-size: 40px;
