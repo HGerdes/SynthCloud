@@ -10,6 +10,7 @@ import { allTracks } from '../../store/tracks';
 import 'font-awesome/css/font-awesome.min.css';
 import AccountNav from "./accountNav"
 
+
 const Header = () => {
     const user = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
@@ -17,13 +18,20 @@ const Header = () => {
     const results = useRef(null);
     const searchResults = useSelector((state) => state.tracks.searchTracks?.search);
     const [search, setSearch] = useState("");
-    const regex = new RegExp(search, "gi");
+    // const regex = new RegExp(search, "gi");
     //for ellipses dropdown
     const dropdown = useRef(null);
     const account = useRef(null);
     const [num, setNum] = useState(0);
     const userId = user?.id;
     const history = useHistory();
+
+    function escapeRegex(string) {
+        return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    }
+
+    const regex = new RegExp(escapeRegex)
+
 
     useEffect(() => {
         if (search?.length > 0) {

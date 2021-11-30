@@ -8,10 +8,11 @@ import WaveSurfer from "wavesurfer.js";
 import { getCommentsForSong } from "../../store/comments";
 import { deleteComment } from "../../store/comments";
 import { editSingleComment } from "../../store/comments";
-import { Redirect } from "react-router";
 
 import "./singleTrack.css"
 import EditButtonFormModal from "../EditButtonModal";
+
+import { useParams } from "react-router";
 
 const SingleTrack = () => {
     const dispatch = useDispatch();
@@ -22,15 +23,16 @@ const SingleTrack = () => {
     let wavesurfer;
     const waveformRef = useRef(null);
     let userId;
-
+    const {id} = useParams();
+    console.log(id)
     if (currentUser) {
         userId = currentUser.id;
-    } 
+    }
 
     useEffect(() => {
         dispatch(loadOneTrack(uniqueTrackId))
         dispatch(getCommentsForSong(uniqueTrackId))
-    },[dispatch, uniqueTrackId])
+    },[dispatch, uniqueTrackId, id, wavesurfer])
 
     const oneTrack = useSelector(state => state.tracks?.getOneTrack);
 
@@ -43,7 +45,8 @@ const SingleTrack = () => {
     let song = oneTrack?.combined[0].track.song_url;
     // let song = "http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3"
     useEffect(() => {
-        if (waveformRef.current) {
+        console.log("WAVESURFER", wavesurfer)
+        if (waveformRef.current || wavesurfer === 1 || wavesurfer === undefined) {
             wavesurfer = WaveSurfer.create({
                 container: waveformRef.current,
                 waveColor: "#D9DCFF",
@@ -56,10 +59,12 @@ const SingleTrack = () => {
                 barGap: 1,
                 responsive: true
             });
-
+            console.log("WAVESURFER AFTER CREATE", wavesurfer)
             if (song) {
                 wavesurfer.load(song);
             }
+
+            wavesurfer.stop();
 
             wavesurfer.on("loading", function() {
                 document.querySelector(".playPause").classList.add("hidden");
@@ -75,7 +80,7 @@ const SingleTrack = () => {
 
             return () => wavesurfer.destroy();
         }
-    },[waveformRef.current, song]);
+    },[waveformRef.current, song, id]);
 
     useEffect(() => {
         document.querySelector(".playPause")?.addEventListener("click", function() {
@@ -142,6 +147,7 @@ const SingleTrack = () => {
                             <div ref={waveformRef} className="waveform"> </div>
                         </div>
                     </div>
+
                     <div className="hr" id="tophr"></div>
                     <ul className="errors">
                                         {errors.map(error => (
