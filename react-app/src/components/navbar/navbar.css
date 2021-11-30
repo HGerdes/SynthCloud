@@ -34,11 +34,14 @@
 .navbarObjectsContainer {
     display: flex;
     box-sizing: border-box;
-    align-items: center;
     flex-direction: row;
-    justify-content: space-between;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 100px;
+    margin-right: 100px;
+    justify-content: center;
+}
+
+.navbarObjectsContainer > * {
+    width: 150px;
 }
 
 .navbarObjectsContainer > * > * {
