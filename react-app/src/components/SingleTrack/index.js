@@ -30,6 +30,8 @@ const SingleTrack = () => {
     }
 
     useEffect(() => {
+        document.querySelector(".playPause").classList.remove("fa-pause")
+        document.querySelector(".playPause").classList.add("fa-play")
         dispatch(loadOneTrack(uniqueTrackId))
         dispatch(getCommentsForSong(uniqueTrackId))
     },[dispatch, uniqueTrackId, id, wavesurfer])
@@ -72,6 +74,9 @@ const SingleTrack = () => {
 
             wavesurfer.on("ready", function () {
                 document.querySelector(".playPause").addEventListener("click", function() {
+                    if (wavesurfer === null) {
+                        console.log("NULLLL")
+                    }
                     wavesurfer.playPause()
                 })
 
