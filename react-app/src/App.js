@@ -17,6 +17,7 @@ import Header from './components/navbar';
 import SingleTrack from './components/SingleTrack';
 import Splash from './components/Splash';
 import Profile from './components/Profile';
+import Footer from './components/Footer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -76,6 +77,7 @@ function App() {
           <Header />
         </ProtectedRoute>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

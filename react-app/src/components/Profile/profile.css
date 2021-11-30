@@ -63,11 +63,54 @@
     height: 30px;
     margin-left: 320px;
     margin-top: 80px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .delTrackBtn {
-    margin-right: 10px;
+    background-color: rgb(0, 222, 222);
+    box-shadow: 0px 0px 25px 5px rgb(0, 222, 222);
+    border-radius: 4px;
+    padding: 0;
+    border: none;
+    font-size: 18px;
+    font-family: Zeroesone;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    height: 30px;
+    width: 80px;
 }
+
+.delTrackBtn:hover {
+    background-color: rgb(222, 125, 246);
+    box-shadow: 0px 0px 15px 5px rgb(222, 125, 246);
+}
+
+.editTrackFormBtn {
+    background-color: rgb(0, 222, 222);
+    box-shadow: 0px 0px 25px 5px rgb(0, 222, 222);
+    border-radius: 4px;
+    padding: 0;
+    border: none;
+    font-size: 18px;
+    font-family: Zeroesone;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    height: 30px;
+    width: 80px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+.editTrackFormBtn:hover {
+    background-color: rgb(222, 125, 246);
+    box-shadow: 0px 0px 15px 5px rgb(222, 125, 246);
+}
+
+
 
 #profilehr {
     margin-left: 60px;
