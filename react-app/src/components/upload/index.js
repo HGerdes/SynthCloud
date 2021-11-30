@@ -18,6 +18,8 @@ const UploadSongForm = () => {
     const [url, setUrl] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [errors, setErrors] = useState([]);
+    const ugh = document.querySelector(".ugh")
+
 
     useEffect(() => {
         dispatch(allGenres())
@@ -50,7 +52,7 @@ const UploadSongForm = () => {
         }
 
         if (!imageTypes.includes(imageExt)) {
-            errors.push("Must be valid image (png, jpg, jpeg, gif")
+            errors.push("Must be valid image (png, jpg, jpeg, gif)")
         }
 
         if (imageUrl.length < 1) {
@@ -79,12 +81,13 @@ const UploadSongForm = () => {
             file: songUrl,
             image_url: imageUrl,
         }
-        console.log(payload)
 
+        ugh.innerText = "Submitted! Standby for redirect..."
         await dispatch(createTrack(payload));
         let navString = "/profile/" + userId
         history.push(navString)
     }
+
 
     return (
         <>
@@ -146,6 +149,7 @@ const UploadSongForm = () => {
                             </ul>
                         </div>
                     </form>
+                    <div className="ugh"></div>
                 </div>
             </div>
         </>

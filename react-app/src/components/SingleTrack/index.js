@@ -57,8 +57,8 @@ const SingleTrack = () => {
                 barWidth: 3,
                 barRadius: 3,
                 cursorWidth: 3,
-                height: 200,
-                barGap: 1,
+                height: 170,
+                barGap: 1.5,
                 responsive: true
             });
             console.log("WAVESURFER AFTER CREATE", wavesurfer)
