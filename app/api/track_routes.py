@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Track, db, User
+from app.models import Track, db, User, Comment
 from app.aws_s3 import *
 import boto3
 import botocore
@@ -79,6 +79,9 @@ def updateTrack(track_id):
 @track_routes.route("/<int:track_id>", methods=["DELETE"])
 def remove_track(track_id):
     track = Track.query.filter_by(id=track_id).first()
+    comments = Comment.query.filter_by(track_id=track_id).all()
+    for comment in comments:
+        db.session.delete(comment)
     db.session.delete(track)
     db.session.commit()
     return track.to_dict()
