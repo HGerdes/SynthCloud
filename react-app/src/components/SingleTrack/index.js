@@ -8,6 +8,7 @@ import WaveSurfer from "wavesurfer.js";
 import { getCommentsForSong } from "../../store/comments";
 import { deleteComment } from "../../store/comments";
 import { editSingleComment } from "../../store/comments";
+import { Redirect } from "react-router";
 
 import "./singleTrack.css"
 import EditButtonFormModal from "../EditButtonModal";
@@ -24,7 +25,7 @@ const SingleTrack = () => {
 
     if (currentUser) {
         userId = currentUser.id;
-    }
+    } 
 
     useEffect(() => {
         dispatch(loadOneTrack(uniqueTrackId))
