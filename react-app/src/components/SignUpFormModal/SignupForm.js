@@ -14,20 +14,6 @@ const SignUpForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const errors = [];
-
-    if (username.length > 40) {
-      errors.push("Username is too long (40 characters max)");
-    }
-
-    if (username.length < 1) {
-      errors.push("Username can't be empty");
-    }
-
-    setErrors(errors)
-  },[username])
-
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
