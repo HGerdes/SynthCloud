@@ -10,6 +10,7 @@ import { allTracks } from '../../store/tracks';
 import 'font-awesome/css/font-awesome.min.css';
 import AccountNav from "./accountNav"
 
+
 const Header = () => {
     const user = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
