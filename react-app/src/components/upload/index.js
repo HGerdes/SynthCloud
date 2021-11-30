@@ -47,8 +47,8 @@ const UploadSongForm = () => {
             errors.push("Track name can't be empty")
         }
 
-        if (name.length > 250) {
-            errors.push("Shorten the name of your track (250 character limit)")
+        if (name.length > 50) {
+            errors.push("Shorten the name of your track (50 character limit)")
         }
 
         if (!imageTypes.includes(imageExt)) {
