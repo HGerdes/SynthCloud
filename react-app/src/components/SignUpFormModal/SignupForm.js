@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import { useEffect } from 'react';
 import "./signupform.css"
 
 const SignUpForm = () => {
@@ -12,6 +13,20 @@ const SignUpForm = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const errors = [];
+
+    if (username.length > 40) {
+      errors.push("Username is too long (40 characters max)");
+    }
+
+    if (username.length < 1) {
+      errors.push("Username can't be empty");
+    }
+
+    setErrors(errors)
+  },[username])
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -94,7 +109,7 @@ const SignUpForm = () => {
                     required={true}
                 ></input>
             </div>
-        <button className="signupSubButt" type='submit'>Sign Up</button>
+        <button disabled={ errors.length > 0 } className="signupSubButt" type='submit'>Sign Up</button>
         </div>
     </form>
   );
