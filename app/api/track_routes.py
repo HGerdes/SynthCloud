@@ -4,6 +4,7 @@ from app.models import Track, db, User
 from app.aws_s3 import *
 import boto3
 import botocore
+from app.forms import EditTrackForm
 
 track_routes = Blueprint("track", __name__)
 
@@ -52,19 +53,32 @@ def addTrack():
         return "ok"
     else: return "No File Attached!"
 
-@track_routes.route("/<int:track_id>", methods=["PUT"])
-def updateTrack(track_id):
-    track = Track.query.filter_by(id=track_id).first()
-    track.name = request.json["name"]
-    track.genre = request.json["genre"]
-    db.session.commit()
-    return track.to_dict()
 
+# @track_routes.route("/<int:track_id>", methods=["PATCH"])
+# def updateTrack(track_id):
+#     track = Track.query.filter_by(id=track_id).first()
+#     track.name = request.json["name"]
+#     track.genre = request.json["genre"]
+#     db.session.commit()
+#     return track.to_dict()
+
+@track_routes.route("/<int:track_id>", methods=["PATCH"])
+@login_required
+def updateTrack(track_id):
+    track = Track.query.get(track_id)
+    form = EditTrackForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        track.name = form.data["name"]
+        track.genre_id = form.data["genre_id"]
+        track.image_url = form.data["image_url"]
+        db.session.commit()
+        return track.to_dict()
+    return jsonify(form.errors), 400
 
 @track_routes.route("/<int:track_id>", methods=["DELETE"])
 def remove_track(track_id):
     track = Track.query.filter_by(id=track_id).first()
-    print("TRAAAAAAAAAACK", track)
     db.session.delete(track)
     db.session.commit()
     return track.to_dict()

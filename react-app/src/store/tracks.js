@@ -75,8 +75,12 @@ export const loadOneTrack = (id) => async (dispatch) => {
 };
 
 export const editTrack = (track) => async dispatch => {
-    const response = await fetch(`/api/tracks/${track.id}/update`, {
+    console.log("TRACCCCCK", track)
+    const response = await fetch(`/api/tracks/${track.id}`, {
         method: "PATCH",
+        headers: {
+            "content-type": "application/json"
+        },
         body: JSON.stringify(track)
     });
 

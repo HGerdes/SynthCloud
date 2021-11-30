@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { allTracks } from "../../store/tracks";
 import { removeTrack } from "../../store/tracks";
+import EditSongFormModal from "../EditTrackModal";
 import "./profile.css"
 
 const Profile = () => {
@@ -37,7 +38,7 @@ const Profile = () => {
                                 </NavLink>
                                 <div className="profileButtContainer">
                                     <button className="delTrackBtn" onClick={() => deleteTrack(track.track?.id)}>Delete</button>
-                                    <button className="editTrackBtn">Edit</button>
+                                    <EditSongFormModal className="editTrackBtn" track={track.track} />
                                 </div>
                             </div>
                             : ""}
