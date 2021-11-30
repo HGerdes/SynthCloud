@@ -53,3 +53,4 @@ So futuristic.  It's like 1986 up in here.
 * Likes (obviously)
 * Search by genre and artist
 * Search will take you to a page rather than have results you have to click 
+* The home page will have a lot more than recently uploaded tracks.  It should have your likes, tracks by genre, random tracks, etc.  
