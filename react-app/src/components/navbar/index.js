@@ -112,7 +112,7 @@ const Header = () => {
             const profileLink = `/profile/${userId}`
             history.push(profileLink)
         } else {
-            history.push("/login")
+            history.push("/")
         }
     }
 

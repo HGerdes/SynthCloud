@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { allAlbums } from "../../store/albums";
 import { allGenres } from "../../store/genres";
 import { editTrack } from "../../store/tracks";
+import { allTracks } from "../../store/tracks";
 
 const EditSongForm = ({setShowModal, ...props}) => {
     const currentUser = useSelector((state) => state.session.user);
@@ -99,10 +100,12 @@ const EditSongForm = ({setShowModal, ...props}) => {
             image_url: imageUrl,
         }
 
-        console.log("PAYLOAD", payload)
-        await dispatch(editTrack(payload));
-        let navString = "/profile/" + userId
-        history.push(navString)
+        let dispatchedTrack = await dispatch(editTrack(payload));
+
+        if (dispatchedTrack) {
+            dispatch(allTracks())
+            setShowModal(false)
+        }
     }
 
     return (

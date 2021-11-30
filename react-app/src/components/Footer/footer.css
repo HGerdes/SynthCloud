@@ -1,0 +1,50 @@
+
+.footerContainer {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    background-color: rgb(0, 0, 0);
+    bottom: 0;
+    left: 0;
+    height: 60px;
+    width: 100%;
+    z-index: 100;
+}
+
+.devName {
+    display: flex;
+    margin-left: 640px;
+    margin-top: 10px;
+    font-size: 34px;
+    color: rgb(69,14,255);
+    text-shadow: 0 0 1px rgb(69,14,255), 0 0 18px rgb(69,14,255);
+    font-family: JohnnyFever;
+}
+
+.linkedInLink {
+    text-decoration: none;
+}
+
+.gitHubLink {
+    text-decoration: none;
+}
+
+.devicon-github-original {
+    display: flex;
+    font-size: 40px;
+    margin-left: 50px;
+    margin-top: 10px;
+    color: rgb(69,14,255);
+    text-shadow: 0 0 1px rgb(69,14,255), 0 0 18px rgb(69,14,255);
+}
+
+.devicon-linkedin-plain {
+    text-decoration: none;
+    display: flex;
+    font-size: 40px;
+    margin-left: 50px;
+    margin-top: 10px;
+    color: rgb(69,14,255);
+    text-shadow: 0 0 1px rgb(69,14,255), 0 0 18px rgb(69,14,255);
+}

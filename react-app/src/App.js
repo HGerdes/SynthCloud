@@ -17,6 +17,7 @@ import Header from './components/navbar';
 import SingleTrack from './components/SingleTrack';
 import Splash from './components/Splash';
 import Profile from './components/Profile';
+import Footer from './components/Footer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -37,12 +38,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact={true}>
-          <Header />
           <Splash />
-        </Route>
-        <Route path='/login' exact={true}>
-          <Header />
-          <LoginForm />
         </Route>
         <Route path='/sign-up' exact={true}>
           <Header />
@@ -76,6 +72,7 @@ function App() {
           <Header />
         </ProtectedRoute>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }
