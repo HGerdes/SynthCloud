@@ -70,7 +70,7 @@ span {
     height: 1.5rem;
     background-color: rgb(232, 232, 232);
     color: rgb(0, 0, 0);
-    font-family: inherit;
+    font-family: Zeroesone;
     border: 0.5px solid grey;
     outline: grey;
     width: 630px;
@@ -98,7 +98,7 @@ span {
 .search-results {
     position: absolute;
     background-color: rgb(242, 242, 242);
-    width: 670px;
+    width: 658px;
     overflow: hidden;
     border-top: 0 !important;
     border: 0.5px solid grey;
@@ -107,7 +107,7 @@ span {
     font-size: 14px;
     padding: 20px 0;
     margin-top: 105px;
-    margin-right: 20px;
+    margin-right: 0px;
 }
 
 .result {
