@@ -3,21 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { allAlbums } from "../../store/albums";
 import { allGenres } from "../../store/genres";
-import { createTrack } from "../../store/tracks";
-import "./upload.css";
+import { editTrack } from "../../store/tracks";
 
-const UploadSongForm = () => {
+const EditSongForm = ({setShowModal, ...props}) => {
     const currentUser = useSelector((state) => state.session.user);
     const userId = currentUser.id;
     const dispatch = useDispatch();
     const history = useHistory();
-
-    const [name, setName] = useState("");
-    const [genre, setGenre] = useState(1);
-    const [songUrl, setSongUrl] = useState("");
-    const [url, setUrl] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
-    const [errors, setErrors] = useState([]);
+    let genreName;
+    let id = props.track?.id;
 
     useEffect(() => {
         dispatch(allGenres())
@@ -26,6 +20,35 @@ const UploadSongForm = () => {
     const genres = useSelector(state => {
         return state.genres.getAllGenres?.list;
     })
+
+    if (genres) {
+        console.log(genres)
+    }
+
+    const [name, setName] = useState(props.track.name);
+    const [imageUrl, setImageUrl] = useState(props.track.image_url);
+    const [errors, setErrors] = useState([]);
+
+
+    const [genre, setGenre] = useState(genreName);
+
+    useEffect(() => {
+        setGenre(genreName)
+    },[genreName])
+
+    useEffect(() => {
+        let trackGenre = genres?.filter((genre) => {
+            return genre.id === props.track.genre_id;
+        })
+
+        if (trackGenre) {
+            setGenre(trackGenre[0].id)
+        }
+    },[genres])
+
+    if (genreName) {
+        console.log(genreName)
+    }
 
     useEffect(() => {
         dispatch(allAlbums())
@@ -57,31 +80,27 @@ const UploadSongForm = () => {
             errors.push("Image URL can't be empty")
         }
 
-        if (name.length > 250) {
+        if (imageUrl.length > 250) {
             errors.push("Shorten the length of your image URL (250 character limit)")
         }
 
-        if (songUrl === "") {
-            errors.push("Please choose a file to upload")
-        }
-
         setErrors(errors)
-    },[name, imageUrl, songUrl]);
+    },[name, imageUrl]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
         const payload = {
+            id: id,
             user_id: userId,
             genre_id: genre,
             album_id: 1,
             name,
-            file: songUrl,
             image_url: imageUrl,
         }
-        console.log(payload)
 
-        await dispatch(createTrack(payload));
+        console.log("PAYLOAD", payload)
+        await dispatch(editTrack(payload));
         let navString = "/profile/" + userId
         history.push(navString)
     }
@@ -90,7 +109,7 @@ const UploadSongForm = () => {
         <>
             <div className="uploadPageContainer">
                 <div className="uploadPageInnerStuff">
-                    <div className="uploadPageDesc">Upload a Track:</div>
+                    <div className="uploadPageDesc">Edit Your Track:</div>
                     <div className="commenthr" id="uploadhr"></div>
                     <form className="newTrackForm" onSubmit={onSubmit}>
                         <div className="uploadFormContainer">
@@ -107,22 +126,11 @@ const UploadSongForm = () => {
                             </div>
                             <div className="genreSelContainer">
                                 <div className="genreSelTitle">Select the genre:</div>
-                                <select className="genreSelect" onChange={(e) => setGenre(e.target.value)}>
+                                <select className="genreSelect" value={genre} onChange={(e) => setGenre(e.target.value)}>
                                     {genres?.map(genre =>
                                         <option key={genre.id} value={genre.id}>{genre.genre_name}</option>
                                     )}
                                 </select>
-                            </div>
-                            <div className="trackURL"> Track File:
-                                <input
-                                    className="uploadFile"
-                                    type="file"
-                                    name="songUrl"
-                                    accept="audio/*"
-                                    onChange={(e) => {
-                                        setSongUrl(e.target.files[0]);
-                                    }}
-                                />
                             </div>
                             <div className="imageURL"> Image URL:
                                 <div className="imageUrlContainer">
@@ -153,4 +161,4 @@ const UploadSongForm = () => {
 
 }
 
-export default UploadSongForm;
+export default EditSongForm;

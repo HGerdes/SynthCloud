@@ -1,5 +1,3 @@
-import os
-
 from flask import Blueprint, jsonify, request, Flask
 from flask_login import login_required, current_user
 from app.models import Comment, db, User

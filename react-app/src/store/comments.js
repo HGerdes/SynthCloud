@@ -66,7 +66,6 @@ export const createComment = (comment, id) => async dispatch => {
 }
 
 export const editSingleComment = ({comment, id}) => async (dispatch) => {
-    console.log("!!!!!!!", comment, id)
     const response = await fetch(`/api/comments/list/${id}`, {
         method: "PATCH",
         headers: {
@@ -74,11 +73,9 @@ export const editSingleComment = ({comment, id}) => async (dispatch) => {
         },
         body: JSON.stringify({comment})
     });
-    console.log("##########", response)
     if (response.ok) {
         console.log("response ok")
         const somethingElse = await response.json();
-        // console.log("%%%%%%%%%", somethingElse)
         dispatch(editComment(somethingElse))
         return somethingElse;
     }
