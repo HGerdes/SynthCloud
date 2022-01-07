@@ -2,12 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { loadOneTrack } from "../../store/tracks";
-import { allGenres } from "../../store/genres";
 import { createComment } from "../../store/comments";
 import WaveSurfer from "wavesurfer.js";
 import { getCommentsForSong } from "../../store/comments";
 import { deleteComment } from "../../store/comments";
-import { editSingleComment } from "../../store/comments";
 
 import "./singleTrack.css"
 import EditButtonFormModal from "../EditButtonModal";
@@ -75,7 +73,6 @@ const SingleTrack = () => {
             wavesurfer.on("ready", function () {
                 document.querySelector(".playPause").addEventListener("click", function() {
                     if (wavesurfer === null) {
-                        console.log("NULLLL")
                     }
                     wavesurfer.playPause()
                 })
@@ -124,7 +121,6 @@ const SingleTrack = () => {
             track_id: +uniqueTrackId,
             comment
         };
-        console.log("payload", payload)
         await dispatch(createComment(payload, uniqueTrackId)).then(() => dispatch(getCommentsForSong(uniqueTrackId)));
         setComment("")
     };
