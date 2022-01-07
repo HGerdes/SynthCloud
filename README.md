@@ -37,7 +37,7 @@ So futuristic.  It's like 1986 up in here.
 
 ## Upload Page
 ![Page](https://i.imgur.com/Gt3jbYj.png)
-* Here you can upload your track.  You can upload your own sound file directly, but images need to be hosted elsewhere (this will change as the site grows).  Images are optional.  All fields are validated.
+* Here you can upload your track.  You can upload your own sound file directly, but images need to be hosted elsewhere (this will change as the site grows).  Working images are optional (this was intentional).  You can get by with just putting ".jpg" in the form.  It won't break the site.  All fields are validated.
 
 <br/>
 
