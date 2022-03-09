@@ -9,6 +9,7 @@ So futuristic.  It's like 1986 up in here.
 
 Navigate to react-app
 npm start > starts front end
+
 pipenv shell > flash run > starts back end
 
 <br/>
