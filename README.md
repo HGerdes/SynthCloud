@@ -7,6 +7,10 @@ Synthcloud is a synthwave-themed Souncloud-ish type website.  Users are encourag
 
 So futuristic.  It's like 1986 up in here.
 
+Navigate to react-app
+npm start > starts front end
+pipenv shell > flash run > starts back end
+
 <br/>
 
 ## Link: https://synthcloud.herokuapp.com/
