@@ -9,8 +9,8 @@ services:
     buildCommand: pip install -r requirements.txt
     envVars:
       - key: DATABASE_URL
-        value: postgres://synthcloud_admin:cDZKfVJzec9aGCGIeIyZ9AzcmqCuSEMC@dpg-cl0m3bk8s0fs73er3ru0-a/synthcloud_db_4zh1
+        value: postgres://harrison:cDZKfVJzec9aGCGIeIyZ9AzcmqCuSEMC@dpg-cl0m3bk8s0fs73er3ru0-a/synthcloud_db_4zh1
 
 databases:
   - name: synthcloud_db
-    user: synthcloud_admin
+    user: harrison
