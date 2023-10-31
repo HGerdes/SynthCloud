@@ -5,7 +5,7 @@ services:
     repo: https://github.com/HGerdes/SynthCloud.git
     region: ohio
     plan: free
-    preDeployCommand: ./flaskdbseed.sh
+    preDeployCommand: flask db upgrade
     buildCommand: pip install -r requirements.txt
     envVars:
       - key: DATABASE_URL
