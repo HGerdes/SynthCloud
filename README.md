@@ -12,9 +12,9 @@ To start code >>>
 
 Navigate to react-app
 
-npm start > starts front end
+npm start >> starts front end
 
-pipenv shell > flash run > starts back end
+pipenv shell > flask run >> starts back end
 
 <br/>
 
