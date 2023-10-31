@@ -3,7 +3,6 @@ services:
     name: synthcloud
     runtime: docker
     repo: https://github.com/HGerdes/SynthCloud.git
-    region: ohio
     plan: starter
     buildCommand: pip install -r requirements.txt
     preDeployCommand: flask db upgrade
