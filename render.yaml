@@ -9,10 +9,9 @@ services:
     preDeployCommand: flask db upgrade
     envVars:
       - key: DATABASE_URL
-        value: postgres://synthcloud_admin:cDZKfVJzec9aGCGIeIyZ9AzcmqCuSEMC@dpg-cl0m3bk8s0fs73er3ru0-a/synthcloud_db_4zh1
+        value: postgres://synthcloud_admin:OpkzezDAsy6J55cWRWeRAPTslbYBW7n4@dpg-cl0o9tf5b13s73abmajg-a/synthdb
 
 databases:
   - name: synthcloud_db
     databaseName: synthdb
     user: synthcloud_admin
-    
