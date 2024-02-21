@@ -18,7 +18,7 @@ pipenv shell > flask run >> starts back end
 
 <br/>
 
-## Link: https://synthcloud.herokuapp.com/
+## Link: https://synthcloud-e1m2.onrender.com/
 
 <br/>
 
